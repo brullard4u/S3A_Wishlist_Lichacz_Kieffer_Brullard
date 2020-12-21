@@ -1,6 +1,6 @@
 <?php
 
-use mywishlist\models\Liste;
+use mywishlist\modele\Liste;
 use mywishlist\vue\VueListe;
 
 class ControleurListe

@@ -4,8 +4,8 @@ namespace mywishlist\controleur;
 
 require_once  "./vendor/autoload.php";
 
-use mywishlist\models\Item;
-use mywishlist\models\Liste;
+use mywishlist\modele\Item;
+use mywishlist\modele\Liste;
 use mywishlist\vue\VueListe;
 use mywishlist\vue\VueItem;
 

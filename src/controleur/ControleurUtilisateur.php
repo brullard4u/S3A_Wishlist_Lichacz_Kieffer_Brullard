@@ -2,7 +2,7 @@
 
 namespace mywishlist\controleur;
 
-use mywishlist\models\Utilisateur;
+use mywishlist\modele\Utilisateur;
 use mywishlist\vue\VueUtilisateur;
 
 class ControleurUtilisateur
