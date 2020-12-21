@@ -1,0 +1,30 @@
+{
+    "name": "s3a_wishlist/lichacz_kieffer_brullard",
+    "type": "project",
+    "description": "Projet PHP 2020-2021",
+    "authors": [{
+            "name": "Sarah Lichacz",
+            "email": "sarah.lichacz@gmail.com"
+        },
+        {
+            "name": "Charlie Kieffer",
+            "email": "charlie.kieffer1@etu.univ-lorraine.fr"
+        },
+        {
+            "name": "Baptiste Brullard",
+            "email": "baptiste.brullard9@etu.univ-lorraine.fr"
+        }
+    ],
+    "require": {
+        "slim/slim": "2.*",
+        "illuminate/database": "^8.0",
+        "php": ">=7.3"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "mywishlist\\": "./src/",
+            "confBDD\\": "./conf"
+        }
+    }
+}
