@@ -1,5 +1,7 @@
 <?php
 
+namespace mywishlist\controleur;
+
 use mywishlist\modele\Item;
 use mywishlist\modele\Liste;
 use mywishlist\vue\VueItem;
@@ -16,7 +18,7 @@ class ControleurParticipant
         echo $aff->render();
     }
 
-    public function afficherItem(string $name, int $id)
+    public function afficherItem(string $name, $id)
     {
         $liste = Liste::where('token', '=', $name)->first();
         $item = Item::where('liste_id', '=', $liste->no)->where('id', '=', $id)->first();
@@ -24,7 +26,7 @@ class ControleurParticipant
         echo $aff->render();
     }
 
-    public function acquerirItem(string $name, int $id)
+    public function acquerirItem(string $name, $id)
     {
         $liste = Liste::where('token', '=', $name)->first();
         $item = Item::where('liste_id', '=', $liste->no)->where('id', '=', $id)->first();

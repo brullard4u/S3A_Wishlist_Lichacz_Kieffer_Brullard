@@ -1,5 +1,7 @@
 <?php
 
+namespace mywishlist\controleur;
+
 use mywishlist\modele\Liste;
 use mywishlist\vue\VueListe;
 

@@ -24,13 +24,17 @@ abstract class VueGenerale
         <head>
             <meta charset="utf-8">
             <meta name="description" content="">
-            <meta name="author" content="Ivan Gazeau">
+            <link rel="stylesheet" href="../../web/css/style.css">
             <title>$title</title>
         </head>
         <body>
+            <header>Projet PHP MyWishList</header>
             <h1>$title</h1>
             <div>{$this->menu}</div>
+            <div class='contenu'
             {$this->html}
+            </div>
+            <footer>Sarah Lichacz | Charlie Kieffer | Baptiste Brullard</footer>
         </body>
         </html>
         FIN;

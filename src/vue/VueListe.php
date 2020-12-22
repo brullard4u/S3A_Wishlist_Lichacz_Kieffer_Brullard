@@ -9,9 +9,9 @@ class VueListe extends VueGenerale
 
     protected $liste;
 
-    public function __construct($demandeur, $liste)
+    public function __construct($createur, $liste)
     {
-        parent::__construct($demandeur);
+        parent::__construct($createur);
         $this->liste = $liste;
     }
 
@@ -47,7 +47,7 @@ class VueListe extends VueGenerale
 
     public function afficherListe()
     {
-        $app = Slim::getInstance();
+        $app = \Slim\Slim::getInstance();
         $this->html = "<h2>{$this->liste->titre}</h2>";
         foreach ($this->liste->items as $item) {
             $i = new VueItem($this->role, $this->liste, $item);

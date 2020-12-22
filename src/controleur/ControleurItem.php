@@ -2,13 +2,10 @@
 
 namespace mywishlist\controleur;
 
-require_once  "./vendor/autoload.php";
-
 use mywishlist\modele\Item;
 use mywishlist\modele\Liste;
 use mywishlist\vue\VueListe;
 use mywishlist\vue\VueItem;
-
 
 class ControleurItem
 {
