@@ -8,15 +8,26 @@ use mywishlist\vue\VueListe;
 class ControleurListe
 {
 
+    private $user;
+
+    public function __construct() 
+    {
+        
+    }
+
     public function nouvelleListe()
     {
-        $a = new VueListe("createur", null);
-        $a->creerListe();
-        echo $a->render();
+        $v = new VueListe("createur", null);
+        $v->creerListe();
+        echo $v->render();
     }
 
     public function choixListe()
     {
+        $liste = "";
+        $aff = new VueListe("createur", $liste);
+        $aff->afficherListes();
+        echo $aff->render();
     }
 
     public function enregistrerListe()
@@ -26,7 +37,7 @@ class ControleurListe
         $liste = new Liste();
         $liste->titre = filter_var($titre, FILTER_SANITIZE_STRING);
         $liste->expiration = filter_var($app->request->post('expire'), FILTER_SANITIZE_NUMBER_INT);
-        $liste->id = $this->user;
+        $liste->user_id = $this->user;
         $liste->token = dechex(random_int(0, 0xFFFFFFF));
         $liste->save();
         $this->choixListe();

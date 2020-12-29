@@ -24,16 +24,19 @@ class ControleurItem
         echo $aff->render();
     }
 
-    public function ajouterItem()
+    public function ajouterItem($title, $descr, $tarif)
     {
         $app = \Slim\Slim::getInstance();
-        $title = $app->request->post('titre');
-        $descr = $app->request->post('descr');
+        //$title = $app->request->post('titre');
+        //$descr = $app->request->post('descr');
         $item = new Item();
-        $item->nom = filter_var($title, FILTER_SANITIZE_STRING);
-        $item->descr = filter_var($descr, FILTER_SANITIZE_STRING);
-        $item->liste = $this->liste->no;
-        $item->tarif = intval($app->request->post('prix'));
+        //$item->nom = filter_var($title, FILTER_SANITIZE_STRING);
+        //$item->descr = filter_var($descr, FILTER_SANITIZE_STRING);
+        //$item->liste_id = $this->liste->no;
+        //$item->tarif = intval($app->request->post('prix'));
+        $item->nom = $title;
+        $item->descr = $descr;
+        $item->tarif = $tarif;
         $item->save();
         $aff = new Liste();
         $aff->afficherListe($this->liste->token);

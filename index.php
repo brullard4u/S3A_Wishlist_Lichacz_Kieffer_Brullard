@@ -2,6 +2,7 @@
 
 use confBDD\Eloquent;
 use mywishlist\controleur\ControleurItem;
+use mywishlist\controleur\ControleurListe;
 use mywishlist\controleur\ControleurParticipant;
 use mywishlist\controleur\ControleurUtilisateur;
 
@@ -39,19 +40,19 @@ $app->post('/connexion', function () use ($app) {
 });
 
 // Affichage de la page permettant de creer/ajouter un nouvel item dans la liste de souhait donnee
-$app->get('/createur/:name/nouvel_item', function ($name) {
+$app->get('/createur/nouvel_item/:name', function ($name) {
 	$c = new ControleurItem($name);
 	$c->itemCreation();
 })->name('formulaire_item');
 
 // Enregistrement du nouvel item dans la BDD
-$app->post('/createur/:name/nouvel_item', function ($name) {
+$app->post('/createur/nouvel_item/:name', function ($name) use ($app){
 	$c = new ControleurItem($name);
-	$c->ajouterItem();
+	$c->ajouterItem(filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING), filter_var($app->request->post('descr'), FILTER_SANITIZE_STRING), $app->request->post('prix'));
 });
 
 // Affichage de la page avec les informations sur un item donne (point de vue du createur de la liste)
-$app->get('/createur/:name/:id', function (string $name, $id) {
+$app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurItem($name);
 	$c->afficheritem($id);
 })->name('voir_item');
@@ -63,9 +64,27 @@ $app->get('/participant/:name/:id', function (string $name, $id) {
 })->name('consulter_item');
 
 // Affichage de la page permettant a un participant d'acheter un item de la liste
-$app->post('participant/:name/:id', function (string $name, $id) {
+$app->post('/participant/:name/:id', function (string $name, $id) {
 	$c = new ControleurParticipant();
 	$c->acquerirItem($name, $id);
+});
+
+// Affichage de la page permettant au createur d'afficher sa liste
+$app->get('/createur/aff_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->afficherListe($name);
+});
+
+// Affichage de la page permettant au createur de creer une liste
+$app->get('/createur/nouvelle_liste', function () {
+	$c = new ControleurListe();
+	$c->nouvelleListe();
+});
+
+// Enregistrement de la nouvelle liste 
+$app->post('/createur/nouvelle_liste', function () {
+	$c = new ControleurListe();
+	$c->enregistrerListe();
 });
 
 $app->run();

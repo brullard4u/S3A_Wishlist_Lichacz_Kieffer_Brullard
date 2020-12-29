@@ -18,20 +18,21 @@ abstract class VueGenerale
             $title = "Création de liste de souhaits";
         else
             $title = "Participation à une liste de cadeaux";
+        $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
         return <<<FIN
         <!DOCTYPE html>
         <html lang="fr">
         <head>
             <meta charset="utf-8">
             <meta name="description" content="">
-            <link rel="stylesheet" href="../../web/css/style.css">
+            <link rel="stylesheet" href=$road>
             <title>$title</title>
         </head>
         <body>
             <header>Projet PHP MyWishList</header>
             <h1>$title</h1>
             <div>{$this->menu}</div>
-            <div class='contenu'
+            <div class='contenu'>
             {$this->html}
             </div>
             <footer>Sarah Lichacz | Charlie Kieffer | Baptiste Brullard</footer>

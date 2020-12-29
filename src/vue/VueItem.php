@@ -71,9 +71,10 @@ class VueItem extends VueGenerale
     public function render()
     {
         $app = \Slim\Slim::getInstance();
-        $url = $app->urlFor($this->role == 'participant' ? 'consulter_item' : 'voir_item', array('name' => $this->liste->token));
+        $url = $app->urlFor($this->role == 'participant' ? 'consulter_liste' : 'voir_liste', array('name' => $this->liste->token));
+        // Ou placer consutler liste dans vue liste ??
         $this->html = $this->afficherItemDetail();
-        $this->menu = "<a href='$url'>Liste {$this->liste->titre}</a>";
+        $this->menu = "<a href='$url'>{$this->liste->titre}</a>";
         return parent::render();
     }
 }
