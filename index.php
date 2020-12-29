@@ -26,6 +26,18 @@ $app->post('/enregistrement', function () use ($app) {
 	$c->createUser(filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING), $app->request->post('password'));
 });
 
+// Affichage de la page permettant la connexion de l'utilisateur
+$app->get('/connexion', function () {
+	$c = new ControleurUtilisateur();
+	$c->logInForm();
+})->name('connexion_uti');
+
+// Connexion de l'utilisateur si les informations renseignees sont verifiees dans la BDD
+$app->post('/connexion', function () use ($app) {
+	$c = new ControleurUtilisateur();
+	$i = $c->authenticateUser(filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING), $app->request->post('password'));
+});
+
 // Affichage de la page permettant de creer/ajouter un nouvel item dans la liste de souhait donnee
 $app->get('/createur/:name/nouvel_item', function ($name) {
 	$c = new ControleurItem($name);

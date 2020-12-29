@@ -22,6 +22,11 @@ class ControleurUtilisateur
         $utilisateur->save();
     }
 
+    public function logInForm() {
+        $v = new VueUtilisateur();
+        $v->logInForm();
+    }
+
     public function authenticateUser(string $nom, string $password): Utilisateur
     {
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
