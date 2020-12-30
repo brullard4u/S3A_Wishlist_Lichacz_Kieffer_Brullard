@@ -36,8 +36,17 @@ class ControleurUtilisateur
         if (!is_null($utilisateur)) {
             if (password_verify($password, $utilisateur->password)) {
                 setcookie('user_id',$utilisateur->user_id,0);
-                return $utilisateur;
+                $v = new VueUtilisateur();
+                $v->connected();
+                
+            }else{
+                $v = new VueUtilisateur();
+                $v->notConnected();
             }
+        }else{
+            $v = new VueUtilisateur();
+                $v->notConnected();
         }
+        return $utilisateur;
     }
 }

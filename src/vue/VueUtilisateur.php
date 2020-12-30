@@ -72,4 +72,25 @@ class VueUtilisateur
 
         $this->render();
     }
+
+
+    public function connected(){
+        $this->html = <<<FIN
+        <h3>Vous êtes connecté.</h3>
+        FIN;
+        $this->title = "Connexion";
+        $this->render();
+    }
+
+    public function notConnected(){
+        $app = Slim::getInstance();
+        $url = $app->urlFor('connexion_uti');
+        $this->html = <<<FIN
+        <h3>Vous n'êtes pas connecté.</h3>
+        <p>Identifiant ou mot de passe incorrect.</p>
+        <a href=$url>réessayer</a>
+        FIN;
+        $this->title = "Connexion";
+        $this->render();
+    }
 }
