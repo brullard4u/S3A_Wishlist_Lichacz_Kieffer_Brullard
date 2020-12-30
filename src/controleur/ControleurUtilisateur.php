@@ -20,6 +20,9 @@ class ControleurUtilisateur
         $utilisateur->nom = $nom;
         $utilisateur->password = password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]);
         $utilisateur->save();
+        $v = new VueUtilisateur();
+        $v->afterRegisterForm();
+
     }
 
     public function logInForm() {
