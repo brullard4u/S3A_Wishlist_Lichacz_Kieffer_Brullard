@@ -58,13 +58,13 @@ $app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
 })->name('voir_item');
 
 // Affichage de la page avec les informations sur un item donne (point de vue du participaznt a la liste)
-$app->get('/participant/:name/:id', function (string $name, $id) {
+$app->get('/participant/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurParticipant();
 	$c->afficherItem($name, $id);
 })->name('consulter_item');
 
 // Affichage de la page permettant a un participant d'acheter un item de la liste
-$app->post('/participant/:name/:id', function (string $name, $id) {
+$app->post('/participant/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurParticipant();
 	$c->acquerirItem($name, $id);
 });
@@ -73,7 +73,13 @@ $app->post('/participant/:name/:id', function (string $name, $id) {
 $app->get('/createur/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->afficherListe($name);
-});
+})->name('consulter_liste');
+
+// Affichage de la page permettant au participant d'afficher une liste
+$app->get('/participant/aff_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->afficherListe($name);
+})->name('voir_liste');
 
 // Affichage de la page permettant au createur de creer une liste
 $app->get('/createur/nouvelle_liste', function () {

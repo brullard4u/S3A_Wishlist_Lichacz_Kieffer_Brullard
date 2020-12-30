@@ -20,7 +20,7 @@ class VueItem extends VueGenerale
     {
         return <<<FIN
         <h3>Ajouter un cadeau</h3>
-        <from method='post' action=''>
+        <form method='post' action=''>
         <p>Nom: <input type='text' name='titre'></p>
         <p>Description: <input type='text' name='descr'></p>
         <p>Prix: <input type='number' name='prix'></p>
@@ -34,9 +34,9 @@ class VueItem extends VueGenerale
         $app = \Slim\Slim::getInstance();
         $this->html = <<<FIN
         <h2>{$this->item->nom}</h2>"
-        <p>{$this->item->descriptif}</p>
+        <p>{$this->item->descr}</p>
         <p>{$this->item->tarif}€</p>
-        <p><img src=../../web/img/{$this->item->img} alt=Photo de l'item height=500px width=auto></p>
+        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt=Photo de l'item height=400px width=auto></p>
         FIN;
     }
 
@@ -46,31 +46,41 @@ class VueItem extends VueGenerale
         $acquereur = '';
         if (!is_null($this->item)) {
             $acquereur = $this->item->acquereur;
-            if (false) {
-                
-            } else {
-                $txt = "<p>Cet item n'a pas encore été choisi.</p>";
-            } 
-        } else {
             if ($this->role == "participant") {
-                $txt = "<p>Cet item a déjà été choisi par $acquereur</p>";
+                if (!empty($acquereur)) {
+                    $txt = "<p>Cet item a déjà été choisi par $acquereur</p>";
+                } else {
+                    $txt = <<<END
+                    <p>Cet item n'a pas encore été choisi !</p>
+                    <form method='post' action=''>
+                    Nom: <input type='text' name='acquereur'>
+                    Message: <input type='text' name='message'>
+                    <input type='submit' value='Acquérir'>
+                    </form>
+                    END;
+                }
             } else {
-                $txt = "<p>Cet item a été choisi !</p>";
+                if (!empty($acquereur)) {
+                    $txt = "<p>Cet item a déjà été choisi !</p>";
+                } else {
+                    $txt = "<p>Cet item n'a pas encore été choisi !</p>";
+                }
             }
         }
+
         return <<<FIN
-        <div><h3>{$this->item->nom}</h3>
-        <p>{$this->item->descriptif}</p>
+        <h3>{$this->item->nom}</h3>
+        <p>{$this->item->descr}</p>
         <p>{$this->item->tarif}€</p>
-        <p><img src=../../web/img/{$this->item->img} alt=Photo de l'item height=500px width=auto></p>
+        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt=Photo de l'item height=400px width=auto></p>
         $txt
-        </div>
         FIN;
     }
 
     public function render()
     {
         $app = \Slim\Slim::getInstance();
+        $url = "";
         $url = $app->urlFor($this->role == 'participant' ? 'consulter_liste' : 'voir_liste', array('name' => $this->liste->token));
         // Ou placer consutler liste dans vue liste ??
         $this->html = $this->afficherItemDetail();

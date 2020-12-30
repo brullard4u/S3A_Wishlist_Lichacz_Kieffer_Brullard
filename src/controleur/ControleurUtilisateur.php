@@ -31,8 +31,10 @@ class ControleurUtilisateur
     {
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
         if (!is_null($utilisateur)) {
-            if (password_verify($password, $utilisateur->password));
-            return $utilisateur;
+            if (password_verify($password, $utilisateur->password)) {
+                setcookie('user_id',$utilisateur->user_id,0);
+                return $utilisateur;
+            }
         }
     }
 }

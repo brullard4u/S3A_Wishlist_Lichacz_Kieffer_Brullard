@@ -56,5 +56,6 @@ class VueListe extends VueGenerale
         $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
         if ($this->role == "createur")
             $this->html .= "<a href='$url'>Ajouter un item</a>";
+
     }
 }
