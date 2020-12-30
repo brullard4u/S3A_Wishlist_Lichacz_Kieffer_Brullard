@@ -65,7 +65,7 @@ class VueUtilisateur
         $url = $app->urlFor('connexion_uti');
         $this->html = <<<FIN
         <h3>Votre enregistrement a été réalisé avec succès</h3>
-        <p>Vous pouvez maintenant vous connectez en utilisant vos identifiants </p>
+        <p>Vous pouvez maintenant vous connecter en utilisant vos identifiants </p>
         <a href=$url>Page de connexion</a>
         FIN;
         $this->title ="Enregistrement validé";
