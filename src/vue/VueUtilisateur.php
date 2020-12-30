@@ -57,4 +57,14 @@ class VueUtilisateur
 
         $this->render();
     }
+
+    public function afterRegisterForm(){
+        $this->html = <<<FIN
+        <h3>Votre enregistrement a été réaslisé avec succès</h3>
+        <p>Vous pouvez maintenant vous connectez en utilisant vos identifiants </p>
+        FIN;
+        $this->title ="Enregistrement validé";
+
+        $this->render();
+    }
 }
