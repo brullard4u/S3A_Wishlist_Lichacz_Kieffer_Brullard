@@ -2,7 +2,7 @@
 
 namespace mywishlist\vue;
 
-use Slim\Slim;
+use mywishlist\modele\Liste;
 
 class VueListe extends VueGenerale
 {
@@ -31,10 +31,11 @@ class VueListe extends VueGenerale
     {
         $app = \Slim\Slim::getInstance();
         $this->html = "<h2>Choisir une liste de souhaits</h2>";
-        foreach ($this->liste as $liste) {
+        $listes = Liste::get();
+        foreach ($listes as $liste) {
             $url = $app->urlFor('voir_liste', array('name' => $liste->token));
             $this->html .= <<<FIN
-            <div><a href="$url">$liste->titre</a></div>
+            <p><a href="$url">$liste->titre</a></p>
             FIN;
         }
     }
@@ -50,12 +51,16 @@ class VueListe extends VueGenerale
         $app = \Slim\Slim::getInstance();
         $this->html = "<h2>{$this->liste->titre}</h2>";
         foreach ($this->liste->items as $item) {
-            $i = new VueItem($this->role, $this->liste, $item);
-            $this->html .= $i->afficherItem();
+            if ($this->role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
+                $url = $app->urlFor('voir_item', array('name' => $this->liste->token, 'id' => $item->id));
+                $this->html .= "<p><a href='$url'>$item->nom</a></p>";
+            } else {
+                $url = $app->urlFor('consulter_item', array('name' => $this->liste->token, 'id' => $item->id));
+                $this->html .= "<p><a href='$url'>$item->nom</a></p>";
+            }
         }
         $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
         if ($this->role == "createur")
             $this->html .= "<a href='$url'>Ajouter un item</a>";
-
     }
 }

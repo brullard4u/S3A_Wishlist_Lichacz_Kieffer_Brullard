@@ -51,13 +51,19 @@ $app->post('/createur/nouvel_item/:name', function ($name) use ($app){
 	$c->ajouterItem(filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING), filter_var($app->request->post('descr'), FILTER_SANITIZE_STRING), $app->request->post('prix'));
 });
 
+// Affichage de la page permettant de choisir une liste
+$app->get('/aff_liste', function () {
+	$c = new ControleurListe();
+	$c->choixListe();
+});
+
 // Affichage de la page avec les informations sur un item donne (point de vue du createur de la liste)
 $app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurItem($name);
 	$c->afficheritem($id);
 })->name('voir_item');
 
-// Affichage de la page avec les informations sur un item donne (point de vue du participaznt a la liste)
+// Affichage de la page avec les informations sur un item donne (point de vue du participant a la liste)
 $app->get('/participant/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurParticipant();
 	$c->afficherItem($name, $id);

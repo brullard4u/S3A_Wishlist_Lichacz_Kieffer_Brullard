@@ -8,13 +8,6 @@ use mywishlist\vue\VueListe;
 class ControleurListe
 {
 
-    private $user;
-
-    public function __construct() 
-    {
-        
-    }
-
     public function nouvelleListe()
     {
         $v = new VueListe("createur", null);
@@ -46,7 +39,7 @@ class ControleurListe
     public function afficherListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $aff = new VueListe("createur", $liste);
+        $aff = new VueListe("participant", $liste);
         $aff->afficherListe();
         echo $aff->render();
     }

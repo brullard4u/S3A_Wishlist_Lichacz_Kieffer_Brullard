@@ -12,7 +12,7 @@ class ControleurParticipant
 
     public function afficherListe(string $name)
     {
-        $liste = Liste::where('token', '=', $name)->firs();
+        $liste = Liste::where('token', '=', $name)->first();
         $aff = new VueListe("participant", $liste);
         $aff->afficherListe();
         echo $aff->render();

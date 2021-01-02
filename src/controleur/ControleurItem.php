@@ -40,7 +40,7 @@ class ControleurItem
     public function afficheritem($id)
     {
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
-        $aff = new VueItem("createur", $this->liste, $item);
+        $aff = new VueItem("participant", $this->liste, $item);
         echo $aff->render(); // methode render de la vue item
     }
 }
