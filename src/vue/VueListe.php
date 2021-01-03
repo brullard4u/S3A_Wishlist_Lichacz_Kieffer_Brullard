@@ -49,9 +49,13 @@ class VueListe extends VueGenerale
     public function afficherListe()
     {
         $app = \Slim\Slim::getInstance();
+        if ($this::$role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
+            $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
+            $this->html .= "<a href='$url'>Ajouter un item</a>";
+        }
         $this->html = "<h2>{$this->liste->titre}</h2>";
         foreach ($this->liste->items as $item) {
-            if ($this->role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
+            if ($this::$role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
                 $url = $app->urlFor('voir_item', array('name' => $this->liste->token, 'id' => $item->id));
                 $this->html .= "<p><a href='$url'>$item->nom</a></p>";
             } else {
@@ -59,8 +63,26 @@ class VueListe extends VueGenerale
                 $this->html .= "<p><a href='$url'>$item->nom</a></p>";
             }
         }
-        $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
-        if ($this->role == "createur")
-            $this->html .= "<a href='$url'>Ajouter un item</a>";
+        $this->html .= "<p> Role : {$this::$role}</p>";
+        /*
+        $url = $app->urlFor('supprimer_liste', array('name' => $this->liste->token));
+        $this->menu = <<<END
+        <p><a href='$url>Supprimer la liste</a></p>;
+        END;
+        */
+    }
+
+    public function supprimerListe()
+    {
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $this->html .= <<<END
+        <h2>Suppression de liste</h2>
+        <h3>Voulez-vous vraiment supprimer la liste suivante ?</h3>
+        <p><a href='$url'></a>{$this->liste->titre}</p>
+        <form method='post' action=''>
+        <input type='submit' value='Supprimer'>
+        </form>
+        END;
     }
 }

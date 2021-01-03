@@ -15,12 +15,25 @@ class ControleurListe
         echo $v->render();
     }
 
+    public function suppressionListe($name) {
+        $liste = Liste::where('token', '=', $name)->first();
+        $v = new VueListe("createur", $liste);
+        $v->supprimerListe();
+        echo $v->render();
+    }
+
+    public function supprimerListe($name) {
+        $liste = Liste::where('token', '=', $name);
+        if (!is_null($liste)) {
+            $liste->delete();
+        }
+        $this->choixListe();
+    }
     public function choixListe()
     {
-        $liste = "";
-        $aff = new VueListe("createur", $liste);
-        $aff->afficherListes();
-        echo $aff->render();
+        $v = new VueListe("createur", null);
+        $v->afficherListes();
+        echo $v->render();
     }
 
     public function enregistrerListe()

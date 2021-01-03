@@ -99,4 +99,26 @@ $app->post('/createur/nouvelle_liste', function () {
 	$c->enregistrerListe();
 });
 
+// Affichage de la page permettant au createur de supprimer sa liste
+$app->get('/createur/supprimer_liste/:name', function($name) {
+	$c = new ControleurListe();
+	$c->suppressionListe($name);
+})->name('supprimer_liste');
+
+// Suppression de la liste
+$app->post('/createur/supprimer_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->supprimerListe($name);
+});
+
+// Affichage de la page permettant au createur de modifier sa liste
+$app->get('/createur/modifier_liste/:name', function($name) {
+	$c = new ControleurListe();
+})->name('modifier_liste');
+
+// Modification de la liste
+$app->post('/createur/modifier_liste/:name', function($name) {
+	$c = new ControleurListe();
+});
+
 $app->run();
