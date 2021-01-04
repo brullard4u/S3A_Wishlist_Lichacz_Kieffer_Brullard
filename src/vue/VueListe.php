@@ -21,6 +21,7 @@ class VueListe extends VueGenerale
         <h3>Créer une nouvelle liste de souhaits<h3>
         <form method='post' action=''>
         <p>Nom de la liste: <input type='text' name='nom'></p>
+        <p>Description: <input type="text" name='description'></p>
         <p>Expire: <input type='date' name='expire'></p>
         <input type='submit' value='Créer'>
         </form>
@@ -84,5 +85,33 @@ class VueListe extends VueGenerale
         <input type='submit' value='Supprimer'>
         </form>
         END;
+    }
+
+    public function modifierListe(){
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $this->html .= <<<FIN
+        <h3>Voulez-vous vraiment modifier la liste suivante ?</h3>
+        <p><a href='$url'></a>{$this->liste->titre}</p>
+        <form method='post' action=''>
+        <p>Nouveau nom de la liste: <input type='text' name='nom'></p>
+        <p>Nouvelle description de la liste <input type="text" name='description'></p>
+        <p>Nouvelle date d'expiration: <input type='date' name='expire'></p>
+        <input type='submit' value='Modifier'>
+        </form>
+        FIN;
+
+    }
+
+    public function postmodificationListe(){
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $this->html = <<<FIN
+        <h3>Votre modification a été réalisé avec succès</h3>
+        FIN;
+        $this->afficherListes();
+        $this->title ="Modification validé";
+
+        $this->render();
     }
 }

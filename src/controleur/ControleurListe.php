@@ -39,11 +39,13 @@ class ControleurListe
     public function enregistrerListe()
     {
         $app = \Slim\Slim::getInstance();
-        $titre = $app->request->post('titre');
+        $titre = $app->request->post('nom');
+        $description = $app->request->post('description');
         $liste = new Liste();
         $liste->titre = filter_var($titre, FILTER_SANITIZE_STRING);
+        $liste->description = filter_var($description,FILTER_SANITIZE_STRING);
         $liste->expiration = filter_var($app->request->post('expire'), FILTER_SANITIZE_NUMBER_INT);
-        $liste->user_id = $this->user;
+        $liste->user_id = $_COOKIE['user_id'];
         $liste->token = dechex(random_int(0, 0xFFFFFFF));
         $liste->save();
         $this->choixListe();
@@ -55,5 +57,12 @@ class ControleurListe
         $aff = new VueListe("participant", $liste);
         $aff->afficherListe();
         echo $aff->render();
+    }
+
+    public function modificationListe($name) {
+        $liste = Liste::where('token', '=', $name)->first();
+        $v = new VueListe("createur", $liste);
+        $v->modifierListe();
+        echo $v->render();
     }
 }

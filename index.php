@@ -114,6 +114,7 @@ $app->post('/createur/supprimer_liste/:name', function ($name) {
 // Affichage de la page permettant au createur de modifier sa liste
 $app->get('/createur/modifier_liste/:name', function($name) {
 	$c = new ControleurListe();
+	$c->modificationListe($name);
 })->name('modifier_liste');
 
 // Modification de la liste
