@@ -2,8 +2,6 @@
 
 namespace mywishlist\vue;
 
-use finfo;
-
 class VueItem extends VueGenerale
 {
 
@@ -46,7 +44,7 @@ class VueItem extends VueGenerale
         $acquereur = '';
         if (!is_null($this->item)) {
             $acquereur = $this->item->acquereur;
-            if ($this->role == "participant" || ($this->role == "createur" && intval($_COOKIE["user_id"]) !=  $this->liste->user_id)) {
+            if ($this->role == "participant" || ($this->role == "createur" && $this->user_id !=  $this->liste->user_id)) {
                 if (!empty($acquereur)) {
                     $txt = "<p>Cet item a déjà été choisi par $acquereur</p>";
                 } else {
@@ -78,7 +76,7 @@ class VueItem extends VueGenerale
     }
 
     public function render()
-    {   
+    {
         $app = \Slim\Slim::getInstance();
         $url = $app->urlFor($this->role == "participant" ? 'consulter_liste' : 'voir_liste', array('name' => $this->liste->token));
         // Ou placer consutler liste dans vue liste ??

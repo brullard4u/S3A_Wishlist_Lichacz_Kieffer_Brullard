@@ -120,6 +120,7 @@ $app->get('/createur/modifier_liste/:name', function($name) {
 // Modification de la liste
 $app->post('/createur/modifier_liste/:name', function($name) {
 	$c = new ControleurListe();
+	$c->modifierListe($name);
 });
 
 $app->run();

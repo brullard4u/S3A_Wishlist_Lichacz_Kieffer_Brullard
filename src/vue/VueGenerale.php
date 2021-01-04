@@ -5,15 +5,16 @@ namespace mywishlist\vue;
 abstract class VueGenerale
 {
 
-    protected $html, $menu;
-    protected static $role;
+    protected $html, $menu, $role, $user_id;
 
     public function __construct($role)
     {
+        $this->role = $_SESSION['profile']['role'];
+        $this->user_id = $_SESSION['profile']['userid'];
+        /*
         if(is_null($this::$role)) {
             $this::$role = "participant";
         }
-        /*
         if (is_null($_COOKIE['user_id'])) {
             $this->role = $role;
         };
@@ -22,7 +23,7 @@ abstract class VueGenerale
 
     public function render()
     {
-        if ($this::$role == "createur")
+        if ($this->role == "createur")
             $title = "Création de liste de souhaits";
         else
             $title = "Participation à une liste de cadeaux";

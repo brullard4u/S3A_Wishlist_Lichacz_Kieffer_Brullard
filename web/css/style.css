@@ -34,3 +34,7 @@ footer {
     width: 100%;
     position: absolute;
 }
+
+a {
+    color: brown;
+}

@@ -79,7 +79,6 @@ class VueUtilisateur
         <h3>Vous êtes connecté.</h3>
         FIN;
         $this->title = "Connexion";
-        $this->role = "createur";
         $this->render();
     }
 

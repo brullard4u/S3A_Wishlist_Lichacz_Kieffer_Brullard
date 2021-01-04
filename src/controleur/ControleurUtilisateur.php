@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\modele\Utilisateur;
 use mywishlist\vue\VueUtilisateur;
+use mywishlist\modele\Liste;
 
 class ControleurUtilisateur
 {
@@ -22,10 +23,10 @@ class ControleurUtilisateur
         $utilisateur->save();
         $v = new VueUtilisateur();
         $v->afterRegisterForm();
-
     }
 
-    public function logInForm() {
+    public function logInForm()
+    {
         $v = new VueUtilisateur();
         $v->logInForm();
     }
@@ -35,17 +36,23 @@ class ControleurUtilisateur
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
         if (!is_null($utilisateur)) {
             if (password_verify($password, $utilisateur->password)) {
-                setcookie('user_id',$utilisateur->user_id,0);
+                $role = "";
+                $liste = Liste::where('user_id', '=', $utilisateur->user_id)->first();
+                if (is_null($liste))
+                    $role = "participant";
+                else
+                    $role = "createur";
+                $_SESSION['profile'] = array('username' => $utilisateur->nom, 'userid' => $utilisateur->user_id, 'role' => $role);
+                setcookie('user_id', $utilisateur->user_id, 0);
                 $v = new VueUtilisateur();
                 $v->connected();
-                
-            }else{
+            } else {
                 $v = new VueUtilisateur();
                 $v->notConnected();
             }
-        }else{
+        } else {
             $v = new VueUtilisateur();
-                $v->notConnected();
+            $v->notConnected();
         }
         return $utilisateur;
     }

@@ -51,12 +51,16 @@ class ControleurListe
         $this->choixListe();
     }
 
-    public function afficherListe($name)
-    {
-        $liste = Liste::where('token', '=', $name)->first();
-        $aff = new VueListe("participant", $liste);
-        $aff->afficherListe();
-        echo $aff->render();
+    public function modifierListe($name) {
+        $app = \Slim\Slim::getInstance();
+        $titre = $app->request->post('nom');
+        $description = $app->request->post('description');
+        $expiration = $app->request->post('expire');
+        Liste::where('token','=',$name)->update(['titre' => $titre, 'description' => $description, 'expiration' => $expiration]);
+        $liste = Liste::where('token','=',$name)->first();
+        $v = new VueListe("createur", $liste);
+        $v->postmodificationListe();
+        echo $v->render();
     }
 
     public function modificationListe($name) {
@@ -64,6 +68,14 @@ class ControleurListe
         $v = new VueListe("createur", $liste);
         $v->modifierListe();
         echo $v->render();
+    }
+
+    public function afficherListe($name)
+    {
+        $liste = Liste::where('token', '=', $name)->first();
+        $aff = new VueListe("participant", $liste);
+        $aff->afficherListe();
+        echo $aff->render();
     }
 
     public function publicationListe($name) {

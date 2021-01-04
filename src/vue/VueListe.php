@@ -31,7 +31,7 @@ class VueListe extends VueGenerale
     public function afficherListes()
     {
         $app = \Slim\Slim::getInstance();
-        $this->html = "<h2>Choisir une liste de souhaits</h2>";
+        $this->html .= "<h2>Choisir une liste de souhaits</h2>";
         $listes = Liste::get();
         foreach ($listes as $liste) {
             $url = $app->urlFor('voir_liste', array('name' => $liste->token));
@@ -50,13 +50,18 @@ class VueListe extends VueGenerale
     public function afficherListe()
     {
         $app = \Slim\Slim::getInstance();
-        if ($this::$role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
+        
+        if ($this->role == "createur" && $this->user_id ==  $this->liste->user_id) {
             $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
-            $this->html .= "<a href='$url'>Ajouter un item</a>";
+            $this->html .= "<p><a href='$url'>Ajouter un item</a></p>";
+            $url = $app->urlFor('modifier_liste', array('name' => $this->liste->token));
+            $this->html .= "<p><a href='$url'>Modifier la liste</a></p>";
+            $url = $app->urlFor('supprimer_liste', array('name' => $this->liste->token));
+            $this->html .= "<p><a href='$url'>Supprimer la liste</a></p>";
         }
-        $this->html = "<h2>{$this->liste->titre}</h2>";
+        $this->html .= "<h2>{$this->liste->titre}</h2>";
         foreach ($this->liste->items as $item) {
-            if ($this::$role == "createur" &&  $_COOKIE["user_id"] ==  $this->liste->user_id) {
+            if ($this->role == "createur" &&  $this->user_id ==  $this->liste->user_id) {
                 $url = $app->urlFor('voir_item', array('name' => $this->liste->token, 'id' => $item->id));
                 $this->html .= "<p><a href='$url'>$item->nom</a></p>";
             } else {
@@ -64,13 +69,6 @@ class VueListe extends VueGenerale
                 $this->html .= "<p><a href='$url'>$item->nom</a></p>";
             }
         }
-        $this->html .= "<p> Role : {$this::$role}</p>";
-        /*
-        $url = $app->urlFor('supprimer_liste', array('name' => $this->liste->token));
-        $this->menu = <<<END
-        <p><a href='$url>Supprimer la liste</a></p>;
-        END;
-        */
     }
 
     public function supprimerListe()
@@ -92,7 +90,7 @@ class VueListe extends VueGenerale
         $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
         $this->html .= <<<FIN
         <h3>Voulez-vous vraiment modifier la liste suivante ?</h3>
-        <p><a href='$url'></a>{$this->liste->titre}</p>
+        <p><a href='$url'>{$this->liste->titre}</a></p>
         <form method='post' action=''>
         <p>Nouveau nom de la liste: <input type='text' name='nom'></p>
         <p>Nouvelle description de la liste <input type="text" name='description'></p>
@@ -105,22 +103,20 @@ class VueListe extends VueGenerale
 
     public function postmodificationListe(){
         $app = \Slim\Slim::getInstance();
-        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
         $this->html = <<<FIN
-        <h3>Votre modification a été réalisé avec succès</h3>
+        <h3>La liste "{$this->liste->titre}" a été modifée avec succès</h3>
         FIN;
+        //$this->title ="Modification validé";
         $this->afficherListes();
-        $this->title ="Modification validé";
-        $this->render();
     }
 
     public function changerEtatListe(){
         $app = \Slim\Slim::getInstance();
         $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
         $this->html = <<<FIN
-        <h2>Suppression de liste</h2>
-        <h3>Voulez-vous vraiment passez cette liste en publique ? </h3>
-        <p><a href='$url'></a>{$this->liste->titre}</p>
+        <h2>Rendre une liste publique</h2>
+        <h3>Voulez-vous vraiment rendre cette liste publique ? </h3>
+        <p><a href='$url'>{$this->liste->titre}</a></p>
         <form method='post' action=''>
         <input type='submit' value='Valider'>
         </form>
