@@ -111,7 +111,31 @@ class VueListe extends VueGenerale
         FIN;
         $this->afficherListes();
         $this->title ="Modification validé";
-
         $this->render();
+    }
+
+    public function changerEtatListe(){
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $this->html = <<<FIN
+        <h2>Suppression de liste</h2>
+        <h3>Voulez-vous vraiment passez cette liste en publique ? </h3>
+        <p><a href='$url'></a>{$this->liste->titre}</p>
+        <form method='post' action=''>
+        <input type='submit' value='Valider'>
+        </form>
+        FIN;
+    }
+
+    public function postChangementEtatListe(){
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $this->html = <<<FIN
+        <h3>Votre liste a bien été passé en publique </h3>
+        FIN;
+        $this->afficherListes();
+        $this->title ="Liste Publique!";
+        $this->render();
+
     }
 }

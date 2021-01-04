@@ -65,4 +65,11 @@ class ControleurListe
         $v->modifierListe();
         echo $v->render();
     }
+
+    public function publicationListe($name) {
+        $liste = Liste::where('token', '=', $name)->first();
+        $v = new VueListe("createur", $liste);
+        $v->changerEtatListe();
+        echo $v->render();
+    }
 }
