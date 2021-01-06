@@ -2,6 +2,8 @@
 
 namespace mywishlist\vue;
 
+use Slim\Slim;
+
 class VueItem extends VueGenerale
 {
 
@@ -75,7 +77,20 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-    public function render()
+    public function ajouterImageItem(){
+        $app = Slim::getInstance();
+        $this->html .= <<<FIN
+        <h3>Vous pouvez ajouter une image à cet item</h3>
+        <p>L'image sera soit depuis un URL soit depuis vos fichiers</p>
+        <p>Depuis un URL : <textarea> name="URL" rows="1" cols="60"</textarea></p>
+        <p>Ou</p>
+        <p>Depuis un fichier : <textarea>name="fichier" rows="1" cols="60"</textarea></p>
+        FIN;
+        $this->title ="Ajouter une image à votre item";
+        echo $this->render();
+    }
+
+    /**public function render()
     {
         $app = \Slim\Slim::getInstance();
         $url = $app->urlFor($this->role == "participant" ? 'consulter_liste' : 'voir_liste', array('name' => $this->liste->token));
@@ -84,4 +99,5 @@ class VueItem extends VueGenerale
         $this->menu = "<a href='$url'>{$this->liste->titre}</a>";
         return parent::render();
     }
+     */
 }

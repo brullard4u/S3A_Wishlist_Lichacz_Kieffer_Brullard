@@ -123,4 +123,10 @@ $app->post('/createur/modifier_liste/:name', function($name) {
 	$c->modifierListe($name);
 });
 
+// Ajout d une image
+$app->get('/createur/ajouter_image/:name', function($name) {
+    $c = new ControleurItem();
+    $c->ajouterImage($name);
+});
+
 $app->run();
