@@ -11,13 +11,14 @@ class VueUtilisateur
     private $html;
 
     public function render() {
+        $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
         echo <<<END
         <!DOCTYPE html>
         <html lang="fr">
         <head>
             <meta charset="utf-8">
             <meta name="description" content="">
-            <link rel="stylesheet" href="./web/css/style.css">
+            <link rel="stylesheet" href=$road>
             <title>{$this->title}</title>
         </head>
         <body>

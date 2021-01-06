@@ -37,10 +37,11 @@ class ControleurItem
         echo $aff->render();
     }
 
-    public function afficheritem($id)
+    public function afficherItem($id)
     {
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
         $aff = new VueItem("participant", $this->liste, $item);
+        $aff->afficherItem();
         echo $aff->render(); // methode render de la vue item
     }
 
@@ -49,5 +50,10 @@ class ControleurItem
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
         $aff = new VueItem("createur", $this->liste, $item);
         $aff->ajouterImageItem();
+        echo $aff->render();
+    }
+
+    public function enregistrerImage($id) {
+        $app = \Slim\Slim::getInstance(); 
     }
 }

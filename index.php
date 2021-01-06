@@ -60,7 +60,7 @@ $app->get('/aff_liste', function () {
 // Affichage de la page avec les informations sur un item donne (point de vue du createur de la liste)
 $app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
 	$c = new ControleurItem($name);
-	$c->afficheritem($id);
+	$c->afficherItem($id);
 })->name('voir_item');
 
 // Affichage de la page avec les informations sur un item donne (point de vue du participant a la liste)
@@ -129,10 +129,16 @@ $app->post('/createur/modifier_liste/:name', function($name) {
 	$c->modifierListe($name);
 });
 
-// Ajout d une image
-$app->get('/createur/ajouter_image/:name', function($name) {
-    $c = new ControleurItem();
-    $c->ajouterImage($name);
+// Affichage d'une page permettant d'ajouter une image à un item
+$app->get('/createur/ajouter_image/:name/:id', function($name, $id) {
+    $c = new ControleurItem($name);
+    $c->ajouterImage($id);
+})->name('ajouter_img');
+
+// Mise a jour de l'image de l'item
+$app->post('/createur/ajouter_image/:name/:id', function($name, $id) {
+    $c = new ControleurItem($name);
+    $c->enregistrerImage($id);
 });
 
 $app->run();
