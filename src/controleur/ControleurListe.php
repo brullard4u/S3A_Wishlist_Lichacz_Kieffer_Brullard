@@ -2,6 +2,7 @@
 
 namespace mywishlist\controleur;
 
+use mywishlist\modele\Commentaire;
 use mywishlist\modele\Liste;
 use mywishlist\vue\VueListe;
 
@@ -15,14 +16,16 @@ class ControleurListe
         echo $v->render();
     }
 
-    public function suppressionListe($name) {
+    public function suppressionListe($name)
+    {
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe("createur", $liste);
         $v->supprimerListe();
         echo $v->render();
     }
 
-    public function supprimerListe($name) {
+    public function supprimerListe($name)
+    {
         $liste = Liste::where('token', '=', $name);
         if (!is_null($liste)) {
             $liste->delete();
@@ -43,7 +46,7 @@ class ControleurListe
         $description = $app->request->post('description');
         $liste = new Liste();
         $liste->titre = filter_var($titre, FILTER_SANITIZE_STRING);
-        $liste->description = filter_var($description,FILTER_SANITIZE_STRING);
+        $liste->description = filter_var($description, FILTER_SANITIZE_STRING);
         $liste->expiration = filter_var($app->request->post('expire'), FILTER_SANITIZE_NUMBER_INT);
         $liste->user_id = $_COOKIE['user_id'];
         $liste->token = dechex(random_int(0, 0xFFFFFFF));
@@ -51,19 +54,37 @@ class ControleurListe
         $this->choixListe();
     }
 
-    public function modifierListe($name) {
+    public function enregistrerMessage($name)
+    {
+
+        $app = \Slim\Slim::getInstance();
+        $liste = Liste::where('token', '=', $name)->first();
+        $no = $liste->no;
+        $mess = $app->request->post('mess');
+        $commentaire = new Commentaire();
+        $commentaire->no = filter_var($no, FILTER_SANITIZE_NUMBER_INT);
+        $commentaire->message = filter_var($mess, FILTER_SANITIZE_STRING);
+        $commentaire->save();
+        $v = new VueListe("createur", $liste);
+        $v->enregisterMessage();
+        echo $v->render();
+    }
+
+    public function modifierListe($name)
+    {
         $app = \Slim\Slim::getInstance();
         $titre = $app->request->post('nom');
         $description = $app->request->post('description');
         $expiration = $app->request->post('expire');
-        Liste::where('token','=',$name)->update(['titre' => $titre, 'description' => $description, 'expiration' => $expiration]);
-        $liste = Liste::where('token','=',$name)->first();
+        Liste::where('token', '=', $name)->update(['titre' => $titre, 'description' => $description, 'expiration' => $expiration]);
+        $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe("createur", $liste);
         $v->postmodificationListe();
         echo $v->render();
     }
 
-    public function modificationListe($name) {
+    public function modificationListe($name)
+    {
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe("createur", $liste);
         $v->modifierListe();
@@ -78,7 +99,8 @@ class ControleurListe
         echo $aff->render();
     }
 
-    public function publicationListe($name) {
+    public function publicationListe($name)
+    {
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe("createur", $liste);
         $v->changerEtatListe();

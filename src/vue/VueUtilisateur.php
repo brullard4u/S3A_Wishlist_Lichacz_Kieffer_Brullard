@@ -47,6 +47,8 @@ class VueUtilisateur
     }
 
     public function logInForm() {
+        $app = Slim::getInstance();
+        $url = $app->urlFor('inscription_uti');
         $this->html = <<<FIN
         <h3>Connectez-vous</h3>
         <form action="" method="post">
@@ -54,6 +56,8 @@ class VueUtilisateur
         <p>Mot de passe: <input type="password" name="password"></p>
         <input type="submit" name="i" value="Se connecter">
         </form>
+        <h3>Pas encore enregistré ?</h3>
+        <a href=$url>Enregistrez-vous ici</a>
         FIN;
         $this->title = "Connexion";
 
