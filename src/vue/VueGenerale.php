@@ -9,8 +9,10 @@ abstract class VueGenerale
 
     public function __construct($role)
     {
-        $this->role = $_SESSION['profile']['role'];
-        $this->user_id = $_SESSION['profile']['userid'];
+        if (isset($_SESSION['profile'])) {
+            $this->role = $_SESSION['profile']['role'];
+            $this->user_id = $_SESSION['profile']['userid'];
+        }
         /*
         if(is_null($this::$role)) {
             $this::$role = "participant";
@@ -48,5 +50,12 @@ abstract class VueGenerale
         </body>
         </html>
         FIN;
+    }
+
+    public function __get($at)
+    {
+        if (property_exists($this, $at)) {
+            return $this->$at;
+        } else throw new \Exception("$at : invalid property");
     }
 }

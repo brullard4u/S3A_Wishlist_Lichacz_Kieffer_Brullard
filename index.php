@@ -87,6 +87,12 @@ $app->get('/participant/aff_liste/:name', function ($name) {
 	$c->afficherListe($name);
 })->name('voir_liste');
 
+// Enregistrement du message du participant
+$app->post('/participant/aff_liste/:name', function($name) {
+	$c = new ControleurListe();
+	$c->enregistrerMessage($name);
+});
+
 // Affichage de la page permettant au createur de creer une liste
 $app->get('/createur/nouvelle_liste', function () {
 	$c = new ControleurListe();
@@ -122,5 +128,6 @@ $app->post('/createur/modifier_liste/:name', function($name) {
 	$c = new ControleurListe();
 	$c->modifierListe($name);
 });
+
 
 $app->run();
