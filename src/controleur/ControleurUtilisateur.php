@@ -31,6 +31,12 @@ class ControleurUtilisateur
         $v->logInForm();
     }
 
+    public function logOut() {
+        session_destroy();
+        $v = new VueUtilisateur();
+        $v->logOut();
+    }
+
     public function authenticateUser(string $nom, string $password): Utilisateur
     {
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
@@ -43,7 +49,6 @@ class ControleurUtilisateur
                 else
                     $role = "createur";
                 $_SESSION['profile'] = array('username' => $utilisateur->nom, 'userid' => $utilisateur->user_id, 'role' => $role);
-                setcookie('user_id', $utilisateur->user_id, 0);
                 $v = new VueUtilisateur();
                 $v->connected();
             } else {

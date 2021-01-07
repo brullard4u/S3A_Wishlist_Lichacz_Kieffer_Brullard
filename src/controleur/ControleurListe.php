@@ -11,7 +11,7 @@ class ControleurListe
 
     public function nouvelleListe()
     {
-        $v = new VueListe("createur", null);
+        $v = new VueListe(null);
         $v->creerListe();
         echo $v->render();
     }
@@ -19,7 +19,7 @@ class ControleurListe
     public function suppressionListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $v = new VueListe("createur", $liste);
+        $v = new VueListe($liste);
         $v->supprimerListe();
         echo $v->render();
     }
@@ -34,7 +34,7 @@ class ControleurListe
     }
     public function choixListe()
     {
-        $v = new VueListe("createur", null);
+        $v = new VueListe(null);
         $v->afficherListes();
         echo $v->render();
     }
@@ -65,7 +65,7 @@ class ControleurListe
         $commentaire->no = filter_var($no, FILTER_SANITIZE_NUMBER_INT);
         $commentaire->message = filter_var($mess, FILTER_SANITIZE_STRING);
         $commentaire->save();
-        $v = new VueListe("createur", $liste);
+        $v = new VueListe($liste);
         $v->enregisterMessage();
         echo $v->render();
     }
@@ -78,7 +78,7 @@ class ControleurListe
         $expiration = $app->request->post('expire');
         Liste::where('token', '=', $name)->update(['titre' => $titre, 'description' => $description, 'expiration' => $expiration]);
         $liste = Liste::where('token', '=', $name)->first();
-        $v = new VueListe("createur", $liste);
+        $v = new VueListe($liste);
         $v->postmodificationListe();
         echo $v->render();
     }
@@ -86,7 +86,7 @@ class ControleurListe
     public function modificationListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $v = new VueListe("createur", $liste);
+        $v = new VueListe($liste);
         $v->modifierListe();
         echo $v->render();
     }
@@ -94,7 +94,7 @@ class ControleurListe
     public function afficherListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $aff = new VueListe("participant", $liste);
+        $aff = new VueListe($liste);
         $aff->afficherListe();
         echo $aff->render();
     }
@@ -102,7 +102,7 @@ class ControleurListe
     public function publicationListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $v = new VueListe("createur", $liste);
+        $v = new VueListe($liste);
         $v->changerEtatListe();
         echo $v->render();
     }

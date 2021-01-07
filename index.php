@@ -46,9 +46,9 @@ $app->get('/createur/nouvel_item/:name', function ($name) {
 })->name('formulaire_item');
 
 // Enregistrement du nouvel item dans la BDD
-$app->post('/createur/nouvel_item/:name', function ($name) use ($app){
+$app->post('/createur/nouvel_item/:name', function ($name) use ($app) {
 	$c = new ControleurItem($name);
-	$c->ajouterItem(filter_var($app->request->post('titre'), FILTER_SANITIZE_STRING), filter_var($app->request->post('descr'), FILTER_SANITIZE_STRING), $app->request->post('prix'));
+	$c->ajouterItem();
 });
 
 // Affichage de la page permettant de choisir une liste
@@ -88,7 +88,7 @@ $app->get('/participant/aff_liste/:name', function ($name) {
 })->name('voir_liste');
 
 // Enregistrement du message du participant
-$app->post('/participant/aff_liste/:name', function($name) {
+$app->post('/participant/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->enregistrerMessage($name);
 });
@@ -106,7 +106,7 @@ $app->post('/createur/nouvelle_liste', function () {
 });
 
 // Affichage de la page permettant au createur de supprimer sa liste
-$app->get('/createur/supprimer_liste/:name', function($name) {
+$app->get('/createur/supprimer_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->suppressionListe($name);
 })->name('supprimer_liste');
@@ -118,27 +118,37 @@ $app->post('/createur/supprimer_liste/:name', function ($name) {
 });
 
 // Affichage de la page permettant au createur de modifier sa liste
-$app->get('/createur/modifier_liste/:name', function($name) {
+$app->get('/createur/modifier_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->modificationListe($name);
 })->name('modifier_liste');
 
 // Modification de la liste
-$app->post('/createur/modifier_liste/:name', function($name) {
+$app->post('/createur/modifier_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->modifierListe($name);
 });
 
 // Affichage d'une page permettant d'ajouter une image à un item
-$app->get('/createur/ajouter_image/:name/:id', function($name, $id) {
-    $c = new ControleurItem($name);
-    $c->ajouterImage($id);
+$app->get('/createur/ajouter_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->ajouterImage($id);
 })->name('ajouter_img');
 
-// Mise a jour de l'image de l'item
-$app->post('/createur/ajouter_image/:name/:id', function($name, $id) {
-    $c = new ControleurItem($name);
-    $c->enregistrerImage($id);
+// Ajout de l'image à l'item
+$app->post('/createur/ajouter_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->enregistrerImage($id);
 });
 
+// Affichage d'une page permettant de modifer l'image d'un item
+$app->get('/createur/modifier_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->modifierImage($id);
+});
+
+// Mise a jour de l'image de l'item
+$app->post('/createur/modifier_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+});
 $app->run();

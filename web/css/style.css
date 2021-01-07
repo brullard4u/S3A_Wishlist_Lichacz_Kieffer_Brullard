@@ -7,14 +7,17 @@ body {
     font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
     margin: auto;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .contenu {
     margin: auto;
     padding: 15px;
-    min-height: 100%;
-    position: relative;
+    min-height: 70%;
+}
+
+.contenu img {
+    font-style: italic;
 }
 
 header {
@@ -33,7 +36,6 @@ footer {
     padding: 1%;
     bottom: 0;
     width: 100%;
-    position: absolute;
 }
 
 a {

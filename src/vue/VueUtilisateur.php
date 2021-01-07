@@ -43,26 +43,31 @@ class VueUtilisateur
         </form>
         FIN;
         $this->title = "Enregistrement";
-
         $this->render();
     }
 
     public function logInForm() {
         $app = Slim::getInstance();
         $url = $app->urlFor('inscription_uti');
-        $this->html = <<<FIN
+        $this->html .= <<<FIN
         <h3>Connectez-vous</h3>
         <form action="" method="post">
         Nom: <input type="text" name="nom">
         <p>Mot de passe: <input type="password" name="password"></p>
         <input type="submit" name="i" value="Se connecter">
         </form>
+        FIN;
+        /*
         <h3>Pas encore enregistré ?</h3>
         <a href=$url>Enregistrez-vous ici</a>
-        FIN;
+        */
         $this->title = "Connexion";
-
         $this->render();
+    }
+
+    public function logOut() {
+        $this->html .= "<h2>Vous avez bien été déconnecté.</h2>";
+        $this->logInForm();
     }
 
     public function afterRegisterForm(){
@@ -80,8 +85,9 @@ class VueUtilisateur
 
 
     public function connected(){
+        $name = $_SESSION['profile']['username'];
         $this->html = <<<FIN
-        <h3>Vous êtes connecté.</h3>
+        <h3>Bonjour $name ! Vous êtes connecté.</h3>
         FIN;
         $this->title = "Connexion";
         $this->render();

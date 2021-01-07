@@ -13,7 +13,7 @@ class ControleurParticipant
     public function afficherListe(string $name)
     {
         $liste = Liste::where('token', '=', $name)->first();
-        $aff = new VueListe("participant", $liste);
+        $aff = new VueListe($liste);
         $aff->afficherListe();
         echo $aff->render();
     }
@@ -22,7 +22,7 @@ class ControleurParticipant
     {
         $liste = Liste::where('token', '=', $name)->first();
         $item = Item::where('liste_id', '=', $liste->no)->where('id', '=', $id)->first();
-        $aff = new VueItem("participant", $liste, $item);
+        $aff = new VueItem($liste, $item);
         $aff->afficherItemDetail();
         echo $aff->render();
     }

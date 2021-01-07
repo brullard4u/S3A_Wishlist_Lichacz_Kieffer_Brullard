@@ -10,9 +10,9 @@ class VueListe extends VueGenerale
 
     protected $liste;
 
-    public function __construct($createur, $liste)
+    public function __construct($liste)
     {
-        parent::__construct($createur);
+        parent::__construct();
         $this->liste = $liste;
     }
 
@@ -53,7 +53,7 @@ class VueListe extends VueGenerale
 
     public function afficherListeNvItem()
     {
-        $this->html = "<h2>{$this->liste->titre}</h2>";
+        $this->html = "<h2>Nom de la liste: {$this->liste->titre}</h2>";
         $this->html .= VueItem::creerItem();
     }
 

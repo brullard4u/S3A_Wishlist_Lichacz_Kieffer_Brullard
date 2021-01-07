@@ -9,11 +9,10 @@ class VueItem extends VueGenerale
 
     protected $liste, $item;
 
-    public function __construct(string $role, $liste, $item)
+    public function __construct($liste, $item)
     {
         $this->item = $item;
         $this->liste = $liste;
-        $this->role = $role;
     }
 
     public static function creerItem()
@@ -24,7 +23,9 @@ class VueItem extends VueGenerale
         <p>Nom: <input type='text' name='titre'></p>
         <p>Description: <input type='text' name='descr'></p>
         <p>Prix: <input type='number' name='prix'></p>
-        <input type='submit' value='Ajouter'>
+        <p>Lien vers un site marchand: </p>
+        <textarea name='url' rows="3" cols="80"></textarea>
+        <p><input type='submit' value='Ajouter'></p>
         </form>
         FIN;
     }
@@ -33,17 +34,20 @@ class VueItem extends VueGenerale
     {
         $app = \Slim\Slim::getInstance();
         $acquereur = $this->item->acquereur;
+        $url = '';
         $url1 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url2 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url3 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+        if(!empty($this->item->url))
+            $url = "<a href={$this->item->url}>Achetable ici</a>";
         $this->html = <<<FIN
         <p><a href=$url1>Ajouter une image</a></p>
-        <p><a href=$url2>Modifier une image</a></p>
-        <p><a href=$url3>Supprimer une image</a></p>
+        <p><a href=$url2>Modifier l'image</a></p>
+        <p><a href=$url3>Supprimer l'image</a></p>
         <h2>{$this->item->nom}</h2>
-        <p>{$this->item->descr}</p>
+        <p>{$this->item->descr} {$url}</p>
         <p>{$this->item->tarif}€</p>
-        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt=Photo de l'item height=300px width=auto></p>
+        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt="Photo indisponible" height=300px width=auto></p>
         FIN;
         if (!empty($acquereur)) {
             $mess = $this->item->message;
@@ -57,6 +61,7 @@ class VueItem extends VueGenerale
     {
         $txt = '';
         $acquereur = '';
+        $url = '';
         if (!is_null($this->item)) {
             $acquereur = $this->item->acquereur;
             if (!empty($acquereur)) {
@@ -72,11 +77,13 @@ class VueItem extends VueGenerale
                     END;
             }
         }
+        if(!empty($this->item->url))
+            $url = "<a href={$this->item->url}>Achetable ici</a>";
         $this->html = <<<FIN
         <h3>{$this->item->nom}</h3>
-        <p>{$this->item->descr}</p>
+        <p>{$this->item->descr} {$url}</p>
         <p>{$this->item->tarif}€</p>
-        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt=Photo de l'item height=400px width=auto></p>
+        <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt="Photo indisponible" height="400px" width="auto"></p>
         $txt
         FIN;
     }

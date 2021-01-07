@@ -7,20 +7,12 @@ abstract class VueGenerale
 
     protected $html, $menu, $role, $user_id;
 
-    public function __construct($role)
+    public function __construct()
     {
         if (isset($_SESSION['profile'])) {
             $this->role = $_SESSION['profile']['role'];
             $this->user_id = $_SESSION['profile']['userid'];
         }
-        /*
-        if(is_null($this::$role)) {
-            $this::$role = "participant";
-        }
-        if (is_null($_COOKIE['user_id'])) {
-            $this->role = $role;
-        };
-        */
     }
 
     public function render()
