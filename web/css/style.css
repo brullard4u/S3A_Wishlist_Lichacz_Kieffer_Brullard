@@ -24,12 +24,6 @@ body {
    /* min-height: 70%;*/
 }
 
-.contenu img {
-    position: absolute;
-    top:120px;
-    right: 150px;
-}
-
 header {
     font-size: 2em;
     padding: 5px;
