@@ -15,7 +15,7 @@ class VueUtilisateur
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
         $ins = $app->urlFor('inscription_uti');
         $con = $app->urlFor('connexion_uti');
-        $lsp = $app->urlFor('liste_publique');
+        $lsp = $app->urlFor('aff_liste');
         echo <<<END
         <!DOCTYPE html>
         <html lang="fr">
