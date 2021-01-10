@@ -151,4 +151,11 @@ $app->get('/createur/modifier_image/:name/:id', function ($name, $id) {
 $app->post('/createur/modifier_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
 });
+
+$app->get('/accueil', function () {
+	$c = new ControleurUtilisateur();
+	$c->pageAccueil();
+})->name('accueil');
+
+
 $app->run();

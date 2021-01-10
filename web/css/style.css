@@ -25,7 +25,9 @@ body {
 }
 
 .contenu img {
-    font-style: italic;
+    position: absolute;
+    top:120px;
+    right: 150px;
 }
 
 header {
@@ -50,6 +52,7 @@ footer {
     width: 100%;
   
 }
+
 
 a {
     text-decoration: none;
@@ -178,6 +181,13 @@ select option:hover{
     position: absolute;
     top:120px;
     right: 150px;
+}
+
+
+.a_img{
+    position: absolute;
+    top:35%;
+    right: 10%;
 }
 
 

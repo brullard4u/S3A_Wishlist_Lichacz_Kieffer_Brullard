@@ -61,4 +61,12 @@ class ControleurUtilisateur
         }
         return $utilisateur;
     }
+
+
+
+    public function pageAccueil(){
+        $v = new VueUtilisateur();
+        $v->affichageAccueil();
+    }
+
 }

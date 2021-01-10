@@ -16,6 +16,7 @@ class VueUtilisateur
         $ins = $app->urlFor('inscription_uti');
         $con = $app->urlFor('connexion_uti');
         $lsp = $app->urlFor('aff_liste');
+        $ac = $app->urlFor('accueil');
         echo <<<END
         <!DOCTYPE html>
         <html lang="fr">
@@ -29,7 +30,7 @@ class VueUtilisateur
             <header>
                 <nav class ="menu">
                     <ul>
-                        <li><a href="#">Projet PHP MyWishList</a></li>
+                        <li><a href="$ac">Projet PHP MyWishList</a></li>
                         <li ><a href="$lsp">Liste </a></li>
                         <li class = "connect"><a href="$con">Se connecter </a></li>
                         <li class = "connect"><a href="$ins"> S'inscrire </a></li>
@@ -120,4 +121,19 @@ class VueUtilisateur
         $this->title = "Connexion";
         $this->render();
     }
+
+    public function affichageAccueil(){
+        $this->html = <<<FIN
+        <h3>Bienvenue sur le site MyWishlist!<br> Ici vous pourrez créer vos propres listes de souhaits personalisables au maximum!<br> Pour pourrez créer des listes de cadeaux pour des événements que vous voudrez,<br> que ce soit pour un anniversaire, une crémaillère ou autres.<br>
+        N'hésitez pas à partager vos listes avec les autres personnes!<br> Et vous pourrez toujours venir les consulter en temps voulu </h3>
+        <div class="a_img">
+        <img src="/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/portrait-couple-personnes-agees-heureux-cadeau-anniversaire-fond-bleu_23-2147951814.jpg">
+        </div>
+        FIN;
+        $this->title = "Accueil";
+        $this->render();
+    }
+
+
+
 }

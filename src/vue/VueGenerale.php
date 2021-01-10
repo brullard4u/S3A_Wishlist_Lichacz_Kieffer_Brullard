@@ -20,6 +20,7 @@ abstract class VueGenerale
         $app = Slim::getInstance();
         $lsp = $app->urlFor('aff_liste');
         $cls = $app->urlFor('creation_liste');
+        $ac = $app->urlFor('accueil');
         if ($this->role == "createur")
             $title = "Création de liste de souhaits";
         else
@@ -38,7 +39,7 @@ abstract class VueGenerale
         <header>
         <nav class ="menu">
             <ul>
-                <li><a href="#">Projet PHP MyWishList</a></li>
+                <li><a href=$ac>Projet PHP MyWishList</a></li>
                 <li><a href="$lsp">Liste</a></li>
                 <li >
                     <a href="#">Mon compte </a>
