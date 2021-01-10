@@ -25,7 +25,7 @@ class VueItem extends VueGenerale
         <p>Prix: <input type='number' name='prix'></p>
         <p>Lien vers un site marchand: </p>
         <textarea name='url' rows="3" cols="80"></textarea>
-        <p><input type='submit' value='Ajouter'></p>
+        <p><input type='submit'class='submit' value='Ajouter'></p>
         </form>
         FIN;
     }
@@ -48,6 +48,7 @@ class VueItem extends VueGenerale
         <p>{$this->item->descr} {$url}</p>
         <p>{$this->item->tarif}€</p>
         <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt="Photo indisponible" height=300px width=auto></p>
+        
         FIN;
         if (!empty($acquereur)) {
             $mess = $this->item->message;
@@ -68,12 +69,14 @@ class VueItem extends VueGenerale
                 $txt = "<p>Cet item a déjà été choisi par $acquereur</p>";
             } else {
                 $txt = <<<END
+                    <div class='choisi'>
                     <p>Cet item n'a pas encore été choisi !</p>
                     <form method='post' action=''>
                     Nom: <input type='text' name='acquereur'>
                     Message: <input type='text' name='message'>
-                    <input type='submit' value='Acquérir'>
+                    <input type='submit' class='submit' value='Acquérir'>
                     </form>
+                    </div>
                     END;
             }
         }

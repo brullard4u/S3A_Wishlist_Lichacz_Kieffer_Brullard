@@ -1,7 +1,7 @@
 <?php
 
 namespace mywishlist\vue;
-
+use Slim\Slim;
 abstract class VueGenerale
 {
 
@@ -17,6 +17,9 @@ abstract class VueGenerale
 
     public function render()
     {
+        $app = Slim::getInstance();
+        $lsp = $app->urlFor('aff_liste');
+        $cls = $app->urlFor('creation_liste');
         if ($this->role == "createur")
             $title = "Création de liste de souhaits";
         else
@@ -32,10 +35,27 @@ abstract class VueGenerale
             <title>$title</title>
         </head>
         <body>
-            <header>Projet PHP MyWishList</header>
-            <h1>$title</h1>
-            <div>{$this->menu}</div>
+        <header>
+        <nav class ="menu">
+            <ul>
+                <li><a href="#">Projet PHP MyWishList</a></li>
+                <li><a href="$lsp">Liste</a></li>
+                <li >
+                    <a href="#">Mon compte </a>
+                        <ul class ="sous" > 
+                            <li><a href="$cls">Créer une liste</a></li>
+                            <li><a href="#">Mes listes</a></li>
+                        </ul>
+                </li>
+                <li class = "connect"><a href="#">Se déconnecter </a></li>
+               
+            </ul>
+        </nav>
+        </header>
+            
+            <div>{$this->menu}</div> 
             <div class='contenu'>
+            <h1>$title</h1>
             {$this->html}
             </div>
             <footer>Sarah Lichacz | Charlie Kieffer | Baptiste Brullard</footer>

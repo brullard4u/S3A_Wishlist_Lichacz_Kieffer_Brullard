@@ -1,5 +1,8 @@
+
+
 body,
 html {
+    
     height: 100%;
 }
 
@@ -8,12 +11,17 @@ body {
     margin: auto;
     position: relative;
     overflow-x: hidden;
+    background-color: #c8c8c8;
+
+    
 }
 
 .contenu {
     margin: auto;
-    padding: 15px;
-    min-height: 70%;
+    padding-top: 15px;
+    padding-left: 40px;
+    align-items: stretch;
+   /* min-height: 70%;*/
 }
 
 .contenu img {
@@ -22,22 +30,156 @@ body {
 
 header {
     font-size: 2em;
-    padding: 2%;
+    padding: 5px;
 }
 
 footer,
 header {
-    color: white;
+    color: #c8c8c8;
     text-align: center;
-    background-color: brown;
+    background-color:  #242325;
+    border-bottom: 3px solid  #363536;
 }
 
+
+
 footer {
+    position: fixed;
     padding: 1%;
     bottom: 0;
     width: 100%;
+  
 }
 
 a {
-    color: brown;
+    text-decoration: none;
+    color: #c97125;
 }
+
+
+
+input {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: #c8c8c8;
+    font-size: 16px;
+}
+
+.submit{
+    border: none;
+    background-color: #B3B3B3;
+    padding: 6px;
+}
+ 
+.menu{
+    width: 100%;
+    margin: 0 auto;
+    background-color: #242325;
+    position: sticky;
+    top: 0px;
+    text-align: left;
+    font-size: 20px;
+    
+}
+
+.menu a{
+    
+    display: block;
+    text-decoration: none;
+    color: #B3B3B3 ;
+    border-bottom: 2px solid transparent;
+    padding:  10px;
+}
+
+.menu a:hover{
+    color: #DC965A;
+    border-bottom: 2px solid #DC965A;
+}
+
+.menu li {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+   
+}
+
+.menu li:hover .sous {
+    display: block;
+    background-color: #242325;
+    padding:15px;
+    width: 150px;
+    border:2px solid  #363536;
+}
+
+
+.sous {
+    display: none;
+    position: absolute;
+}
+
+.connect{
+    float: right;
+}
+
+.ajout{
+    position: absolute;
+    top :160px ;
+    left : 60px;
+}
+
+.modif{
+    position: absolute;
+    top :160px ;
+    left : 190px;
+}
+
+.sup{
+    position: absolute;
+    top :160px ;
+    left : 320px;
+}
+
+textarea{
+    border: 1px solid #242325;
+    background-color: #c8c8c8;
+}
+
+.message{
+    position: absolute;
+    top:120px;
+    right: 400px;
+}
+
+select{
+    appearance: none;
+    position: relative;
+    border: 1px solid #242325;
+    background-color: #c8c8c8;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    background-image: url('/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/triangle.png');
+    background-repeat: no-repeat;
+    background-position: 150px center;
+}
+
+select option {
+    background-color: #B3B3B3;
+    border-bottom: 2px solid #DC965A;
+}
+
+
+select option:hover{
+    color: #DC965A;
+    border-bottom: 2px solid #DC965A;
+}
+
+.choisi{
+    position: absolute;
+    top:120px;
+    right: 150px;
+}
+
+
+
+

@@ -11,7 +11,11 @@ class VueUtilisateur
     private $html;
 
     public function render() {
+        $app = Slim::getInstance();
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
+        $ins = $app->urlFor('inscription_uti');
+        $con = $app->urlFor('connexion_uti');
+        $lsp = $app->urlFor('liste_publique');
         echo <<<END
         <!DOCTYPE html>
         <html lang="fr">
@@ -22,9 +26,21 @@ class VueUtilisateur
             <title>{$this->title}</title>
         </head>
         <body>
-            <header>Projet PHP MyWishList</header>
+            <header>
+                <nav class ="menu">
+                    <ul>
+                        <li><a href="#">Projet PHP MyWishList</a></li>
+                        <li ><a href="$lsp">Liste </a></li>
+                        <li class = "connect"><a href="$con">Se connecter </a></li>
+                        <li class = "connect"><a href="$ins"> S'inscrire </a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <div class='contenu'>
             <h1>{$this->title}</h1>
-            <div class='contenu'>{$this->html}</div>
+            {$this->html}
+            </div>
             <footer>Sarah Lichacz | Charlie Kieffer | Baptiste Brullard</footer>
         </body>
         </html>
@@ -39,7 +55,7 @@ class VueUtilisateur
         <form action="" method="post">
         Nom: <input type="text" name="nom">
         <p>Mot de passe: <input type="password" name="password"></p>
-        <input type="submit" name="i" value="S'enregistrer">
+        <input type="submit" name="i" class="submit" value="S'enregistrer">
         </form>
         FIN;
         $this->title = "Enregistrement";
@@ -54,7 +70,7 @@ class VueUtilisateur
         <form action="" method="post">
         Nom: <input type="text" name="nom">
         <p>Mot de passe: <input type="password" name="password"></p>
-        <input type="submit" name="i" value="Se connecter">
+        <input type="submit" name="i" class="submit" value="Se connecter">
         </form>
         FIN;
         /*

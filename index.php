@@ -55,7 +55,7 @@ $app->post('/createur/nouvel_item/:name', function ($name) use ($app) {
 $app->get('/aff_liste', function () {
 	$c = new ControleurListe();
 	$c->choixListe();
-});
+})->name('aff_liste');
 
 // Affichage de la page avec les informations sur un item donne (point de vue du createur de la liste)
 $app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
@@ -97,7 +97,7 @@ $app->post('/participant/aff_liste/:name', function ($name) {
 $app->get('/createur/nouvelle_liste', function () {
 	$c = new ControleurListe();
 	$c->nouvelleListe();
-});
+})->name('creation_liste');
 
 // Enregistrement de la nouvelle liste 
 $app->post('/createur/nouvelle_liste', function () {
