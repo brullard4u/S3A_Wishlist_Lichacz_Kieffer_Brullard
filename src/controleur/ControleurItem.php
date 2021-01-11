@@ -138,4 +138,21 @@ class ControleurItem
         $aff->afficherItem();
         echo $aff->render();
     }
+
+    public function supprimerItem($id){
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        if (!is_null($item)) {
+            $item->delete();
+        }
+       $aff = new VueItem($this->liste, $item);
+        $aff->affSuppression();
+        echo $aff->render();
+    }
+
+    public function suppressionItem($id){
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->affSupprimer();
+        echo $aff->render();
+    }
 }

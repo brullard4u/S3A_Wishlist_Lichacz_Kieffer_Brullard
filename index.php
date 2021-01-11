@@ -200,4 +200,19 @@ $app->post('/createur/supprimer_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
 	$c->suppressionImage($id);
 });
+
+
+$app->post('/createur/supprimer_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->supprimerItem($id);
+});
+
+$app->get('/createur/supprimer_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->suppressionItem($id);
+});
+
+
+
+
 $app->run();

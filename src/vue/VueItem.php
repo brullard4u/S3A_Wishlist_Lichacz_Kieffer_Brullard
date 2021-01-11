@@ -178,4 +178,28 @@ class VueItem extends VueGenerale
         return parent::render();
     }
      */
+
+
+
+    public function affSupprimer(){
+        $app = Slim::getInstance();
+        $this->html .= <<<FIN
+        <h2>Suppression de l'item</h2>
+        <h3>Voulez-vous vraiment supprimer l'item suivante ?</h3>
+        <h2>{$this->item->nom}</h2>
+        <form method='post' action=''>
+        <input type='submit' class='submit' value='Supprimer'>
+        </form>
+        FIN;
+    }
+
+
+    public function affSuppression(){
+        $app = Slim::getInstance();
+        $ls = $app->urlFor('cons_liste');
+        $this->html .= <<<FIN
+        <h3>L'item vient d'etre supprimer</h3>
+        <p><a href=$ls>retourner au liste</a></p>
+        FIN;
+    }
 }
