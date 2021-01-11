@@ -59,17 +59,62 @@ class ControleurItem
         echo $aff->render();
     }
 
-    public function enregistrerImage($id) {
-        $app = \Slim\Slim::getInstance(); 
+    public function enregistrerImage($id)
+    {
+        $app = \Slim\Slim::getInstance();
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
-        $img = $app->request->post('URL');
-        if(empty($img)) {
-            $img = $app->request->post('fichier');
+        $img = filter_var( $app->request->post('URL'), FILTER_SANITIZE_STRING);
+        if (empty($img)) {
+            $img = filter_var( $app->request->post('fichier'), FILTER_SANITIZE_STRING);
         }
-        $item->img = filter_var($img,FILTER_SANITIZE_STRING);
+        Item::where('id', '=', $id)->update(['img' => $img]);
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $v = new VueItem($this->liste, $item);
+        $v->afficherItem();
+        echo $v->render();
     }
 
-    public function modifierImage($id) {
-        
+    public function modificationImage($id) {
+        $app  = \Slim\Slim::getInstance();
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $url = filter_var($app->request->post('URL'), FILTER_SANITIZE_STRING);
+        $fichier = filter_var($app->request->post('fichier'), FILTER_SANITIZE_STRING);
+        if (empty($url)) {
+            Item::where('id', '=', $id)->update(['img' => $fichier]);
+        } else {
+            // On enregistre l'image ciblé par le lien puis on affecte l'image comme juste au-dessus
+        }
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $v = new VueItem($this->liste, $item);
+        $v->afficherItem();
+        echo $v->render();
+    }
+
+    public function modifierImage($id)
+    {
+        $app = \Slim\Slim::getInstance();
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->modifierImage();
+        echo $aff->render();
+    }
+
+    public function supprimerImage($id)
+    {
+        $app = \Slim\Slim::getInstance();
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->supprimerImage();
+        echo $aff->render();
+    }
+
+    public function suppressionImage($id)
+    {
+        $app = \Slim\Slim::getInstance();
+        Item::where('id', '=', $id)->update(['img' => '']);
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->afficherItem();
+        echo $aff->render();
     }
 }

@@ -36,9 +36,9 @@ class VueItem extends VueGenerale
         $acquereur = $this->item->acquereur;
         $url = '';
         $url1 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
-        $url2 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
-        $url3 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
-        if(!empty($this->item->url))
+        $url2 = $app->urlFor('modifier_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+        $url3 = $app->urlFor('supprimer_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+        if (!empty($this->item->url))
             $url = "<a href={$this->item->url}>Achetable ici</a>";
         $this->html = <<<FIN
         <p><a href=$url1>Ajouter une image</a></p>
@@ -80,7 +80,7 @@ class VueItem extends VueGenerale
                     END;
             }
         }
-        if(!empty($this->item->url))
+        if (!empty($this->item->url))
             $url = "<a href={$this->item->url}>Achetable ici</a>";
         $this->html = <<<FIN
         <h3>{$this->item->nom}</h3>
@@ -96,12 +96,60 @@ class VueItem extends VueGenerale
         $app = Slim::getInstance();
         $this->html .= <<<FIN
         <h3>Vous pouvez ajouter une image à l'item "{$this->item->nom}"</h3>
-        <p>L'image sera soit depuis un URL soit depuis vos fichiers</p>
-        <p>Depuis un URL : <textarea name="URL" rows="1" cols="60"></textarea></p>
-        <p>Ou</p>
-        <p>Depuis un fichier : <textarea name="fichier" rows="1" cols="60"></textarea></p>
+        <form method='post' action=''>
+            <p>L'image sera soit depuis un URL soit depuis vos fichiers</p>
+            <p>Depuis un URL : <textarea name="URL" rows="1" cols="60"></textarea></p>
+            <p>Ou</p>
+            <p>Depuis un fichier : <textarea name="fichier" rows="1" cols="60"></textarea></p>
+            <input type='submit' class='submit' value='Ajouter'>
+        </form>
         FIN;
         //$this->title = "Ajouter une image à votre item";
+    }
+
+    public function modifierImage()
+    {
+        $app = Slim::getInstance();
+        if (empty($this->item->img)) {
+            $url = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+            $this->html .= <<<FIN
+            <h3>Cet item n'a pas encore d'image !</h3>
+            <a href=$url>Cliquez-ici pour ajouter une image</a>
+            FIN;
+        } else {
+            $this->html .= <<<FIN
+            <h3>Vous pouvez modifier l'image de l'item "{$this->item->nom}"</h3>
+            <form method='post' action=''>
+            <p>L'image sera soit depuis un URL soit depuis vos fichiers</p>
+            <p>Depuis un URL : <textarea name="URL" rows="1" cols="60"></textarea></p>
+            <p>Ou</p>
+            <p>Depuis un fichier : <textarea name="fichier" rows="1" cols="60"></textarea></p>
+            <input type='submit' class='submit' value='Modifier'>
+            </form>
+            FIN;
+        }
+        //$this->title = "Ajouter une image à votre item";
+    }
+
+    public function supprimerImage()
+    {
+        $app = Slim::getInstance();
+        $url = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+        if (empty($this->item->img)) {
+            $this->html .= <<<FIN
+            <h2>Suppresion de l'image d'un item</h2>
+            <h3>Cette image n'a pas d'image !</h3>
+            <a href=$url>Cliquez-ici pour ajouter une image</a>
+            FIN;
+        } else {
+            $this->html .= <<<FIN
+            <h2>Suppresion de l'image d'un item</h2>
+            <h3>Voulez-vous vraiment supprimer l'image de l'item {$this->item->name} ?</h3>
+            <form method='post' action=''>
+            <input type='submit' class='submit' value='Supprimer'>
+            </form>
+            FIN;
+        }
     }
 
     /**public function render()

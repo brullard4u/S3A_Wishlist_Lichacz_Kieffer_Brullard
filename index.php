@@ -170,14 +170,23 @@ $app->post('/createur/ajouter_image/:name/:id', function ($name, $id) {
 $app->get('/createur/modifier_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
 	$c->modifierImage($id);
-});
+})->name('modifier_img');
 
 // Mise a jour de l'image de l'item
 $app->post('/createur/modifier_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
+	$c->modificationImage($id);
 });
 
+// Affichage d'une page permettant de supprimer l'image d'un item
+$app->get('/createur/supprimer_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->supprimerImage($id);
+})->name('supprimer_img');
 
-
-
+// Suppression de l'image de l'item
+$app->post('/createur/supprimer_image/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->suppressionImage($id);
+});
 $app->run();
