@@ -91,6 +91,22 @@ class VueItem extends VueGenerale
         FIN;
     }
 
+    public function modifierItem()
+    {
+        $app = Slim::getInstance();
+        $this->html .= <<<FIN
+        <h3>Voulez vous modifier l'item suivant ? "{$this->item->nom}"</h3>
+        <form method='post' action=''>
+            <p>Nouveau Nom: <input type='text' name='nom'></p>
+            <p>Nouvelle Description: <input type='text' name='descr'></p>
+            <p>Nouveau Prix: <input type='number' name='prix'></p>
+            <p>Nouveau Lien vers un site marchand: </p>
+            <textarea name='url' rows="3" cols="80"></textarea>
+            <p><input type='submit'class='submit' value='modifier'></p>
+        </form>
+        FIN;
+    }
+
     public function ajouterImageItem()
     {
         $app = Slim::getInstance();

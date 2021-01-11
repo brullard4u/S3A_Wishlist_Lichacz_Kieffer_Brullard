@@ -43,6 +43,27 @@ class ControleurItem
         echo $aff->render();
     }
 
+    public function modifierItem($id) {
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $app = \Slim\Slim::getInstance();
+        $nom = $app->request->post('nom');
+        $descr = $app->request->post('descr');
+        $prix = $app->request->post('prix');
+        $url = $app->request->post('url');
+        Item::where('id', '=', $id)->update(['nom' => $nom, 'descr' => $descr, 'tarif' => $prix, 'url' => $url]);
+        $item = Item::where('id', '=', $id)->first();
+        $v = new VueItem($this->liste,$item);
+        $v->afficherItem();
+        echo $v->render();
+    }
+
+    public function modificationItem($id) {
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+         $v = new VueItem($this->liste,$item);
+         $v->modifierItem();
+         echo $v->render();
+    }
+
     public function afficherItem($id)
     {
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();

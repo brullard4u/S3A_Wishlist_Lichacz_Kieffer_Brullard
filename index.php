@@ -57,6 +57,18 @@ $app->post('/createur/nouvel_item/:name', function ($name) use ($app) {
 	$c->ajouterItem();
 });
 
+// Affichage de la page pour modifier un item
+$app->get('/createur/modifier_item/:name/:id' , function ($name, $id) {
+    $c = new ControleurItem($name);
+    $c->modificationItem($id);
+});
+
+// Modification d'un item
+$app->post('/createur/modifier_item/:name/:id' , function ($name, $id) {
+    $c = new ControleurItem($name);
+    $c->modifierItem($id);
+});
+
 // Affichage de la page permettant de choisir une liste
 $app->get('/participant/aff_liste', function () {
 	$c = new ControleurListe();
@@ -140,7 +152,6 @@ $app->post('/createur/modifier_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->modifierListe($name);
 });
-
 
 // Affichage de la page permettant au createur de rendre une liste publique
 $app->get('/createur/rendre_publique/:name', function ($name) {
