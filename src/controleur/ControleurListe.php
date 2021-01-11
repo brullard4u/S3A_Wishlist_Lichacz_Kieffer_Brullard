@@ -30,12 +30,12 @@ class ControleurListe
         if (!is_null($liste)) {
             $liste->delete();
         }
-        $this->choixListe();
+        $this->choixListe(2);
     }
-    public function choixListe()
+    public function choixListe($val)
     {
         $v = new VueListe(null);
-        $v->afficherListes();
+        $v->afficherListes($val);
         echo $v->render();
     }
 
@@ -48,10 +48,10 @@ class ControleurListe
         $liste->titre = filter_var($titre, FILTER_SANITIZE_STRING);
         $liste->description = filter_var($description, FILTER_SANITIZE_STRING);
         $liste->expiration = filter_var($app->request->post('expire'), FILTER_SANITIZE_NUMBER_INT);
-        $liste->user_id = $_COOKIE['user_id'];
+        $liste->user_id = $_SESSION['profile']['userid'];
         $liste->token = dechex(random_int(0, 0xFFFFFFF));
         $liste->save();
-        $this->choixListe();
+        $this->choixListe(2);
     }
 
     public function enregistrerMessage($name)
@@ -79,7 +79,7 @@ class ControleurListe
         Liste::where('token', '=', $name)->update(['titre' => $titre, 'description' => $description, 'expiration' => $expiration]);
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe($liste);
-        $v->postmodificationListe();
+        $v->postModificationListe();
         echo $v->render();
     }
 
@@ -104,6 +104,15 @@ class ControleurListe
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe($liste);
         $v->changerEtatListe();
+        echo $v->render();
+    }
+
+    public function publierListe($name)
+    {
+        $liste = Liste::where('token', '=', $name)->first();
+        $liste->privacy = 'pulic';
+        $v = new VueListe($liste);
+        $v->postChangementEtatListe();
         echo $v->render();
     }
 }

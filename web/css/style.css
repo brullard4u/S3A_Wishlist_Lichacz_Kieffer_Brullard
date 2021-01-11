@@ -1,8 +1,5 @@
-
-
 body,
 html {
-    
     height: 100%;
 }
 
@@ -12,8 +9,6 @@ body {
     position: relative;
     overflow-x: hidden;
     background-color: #c8c8c8;
-
-    
 }
 
 .contenu {
@@ -21,7 +16,11 @@ body {
     padding-top: 15px;
     padding-left: 40px;
     align-items: stretch;
-   /* min-height: 70%;*/
+    /* min-height: 70%;*/
+}
+
+img {
+    font-style: italic;
 }
 
 header {
@@ -33,27 +32,21 @@ footer,
 header {
     color: #c8c8c8;
     text-align: center;
-    background-color:  #242325;
-    border-bottom: 3px solid  #363536;
+    background-color: #242325;
+    border-bottom: 3px solid #363536;
 }
-
-
 
 footer {
     position: fixed;
     padding: 1%;
     bottom: 0;
     width: 100%;
-  
 }
-
 
 a {
     text-decoration: none;
     color: #c97125;
 }
-
-
 
 input {
     border: none;
@@ -62,13 +55,13 @@ input {
     font-size: 16px;
 }
 
-.submit{
+.submit {
     border: none;
     background-color: #B3B3B3;
     padding: 6px;
 }
- 
-.menu{
+
+.menu {
     width: 100%;
     margin: 0 auto;
     background-color: #242325;
@@ -76,19 +69,17 @@ input {
     top: 0px;
     text-align: left;
     font-size: 20px;
-    
 }
 
-.menu a{
-    
+.menu a {
     display: block;
     text-decoration: none;
-    color: #B3B3B3 ;
+    color: #B3B3B3;
     border-bottom: 2px solid transparent;
-    padding:  10px;
+    padding: 10px;
 }
 
-.menu a:hover{
+.menu a:hover {
     color: #DC965A;
     border-bottom: 2px solid #DC965A;
 }
@@ -97,57 +88,61 @@ input {
     display: inline-block;
     vertical-align: top;
     position: relative;
-   
 }
 
 .menu li:hover .sous {
     display: block;
     background-color: #242325;
-    padding:15px;
+    padding: 15px;
     width: 150px;
-    border:2px solid  #363536;
+    border: 2px solid #363536;
 }
-
 
 .sous {
     display: none;
     position: absolute;
 }
 
-.connect{
+.connect {
     float: right;
 }
 
-.ajout{
+.ajout {
     position: absolute;
-    top :160px ;
-    left : 60px;
+    top: 160px;
+    left: 60px;
 }
 
-.modif{
+.modif {
     position: absolute;
-    top :160px ;
-    left : 190px;
+    top: 160px;
+    left: 190px;
 }
 
-.sup{
+.sup {
     position: absolute;
-    top :160px ;
-    left : 320px;
+    top: 160px;
+    left: 320px;
 }
 
-textarea{
+.public {
+    position: absolute;
+    top: 160px;
+    left: 460px;
+}
+
+textarea {
     border: 1px solid #242325;
     background-color: #c8c8c8;
 }
 
-.message{
+.message {
     position: absolute;
-    top:120px;
+    top: 120px;
     right: 400px;
 }
 
-select{
+select {
     appearance: none;
     position: relative;
     border: 1px solid #242325;
@@ -165,25 +160,23 @@ select option {
     border-bottom: 2px solid #DC965A;
 }
 
-
-select option:hover{
+select option:hover {
     color: #DC965A;
     border-bottom: 2px solid #DC965A;
 }
 
-.choisi{
+.choisi {
     position: absolute;
-    top:120px;
+    top: 120px;
     right: 150px;
 }
 
-
-.a_img{
+.a_img {
     position: absolute;
-    top:35%;
+    top: 35%;
     right: 10%;
 }
 
-
-
-
+h2 {
+    padding-top: 20px;
+}

@@ -15,6 +15,12 @@ $app = new Slim\Slim;
 
 session_start();
 
+// Affichage de la page d'accueil du site
+$app->get('/', function () {
+	$c = new ControleurUtilisateur();
+	$c->pageAccueil();
+})->name('accueil');
+
 // Affichage de la page permettant l'enregistrement de l'utilisateur
 $app->get('/enregistrement', function () {
 	$c = new ControleurUtilisateur();
@@ -52,10 +58,16 @@ $app->post('/createur/nouvel_item/:name', function ($name) use ($app) {
 });
 
 // Affichage de la page permettant de choisir une liste
-$app->get('/aff_liste', function () {
+$app->get('/participant/aff_liste', function () {
 	$c = new ControleurListe();
-	$c->choixListe();
+	$c->choixListe(1);
 })->name('aff_liste');
+
+// Affichage de la page permettant de choisir une liste
+$app->get('/createur/aff_liste', function () {
+	$c = new ControleurListe();
+	$c->choixListe(2);
+})->name('cons_liste');
 
 // Affichage de la page avec les informations sur un item donne (point de vue du createur de la liste)
 $app->get('/createur/aff_liste/:name/:id', function (string $name, $id) {
@@ -75,12 +87,6 @@ $app->post('/participant/aff_liste/:name/:id', function (string $name, $id) {
 	$c->acquerirItem($name, $id);
 });
 
-// Affichage de la page permettant au createur d'afficher sa liste
-$app->get('/createur/aff_liste/:name', function ($name) {
-	$c = new ControleurListe();
-	$c->afficherListe($name);
-})->name('consulter_liste');
-
 // Affichage de la page permettant au participant d'afficher une liste
 $app->get('/participant/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
@@ -92,6 +98,12 @@ $app->post('/participant/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->enregistrerMessage($name);
 });
+
+// Affichage de la page permettant au createur d'afficher une liste
+$app->get('/createur/aff_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->afficherListe($name);
+})->name('consulter_liste');
 
 // Affichage de la page permettant au createur de creer une liste
 $app->get('/createur/nouvelle_liste', function () {
@@ -129,6 +141,19 @@ $app->post('/createur/modifier_liste/:name', function ($name) {
 	$c->modifierListe($name);
 });
 
+
+// Affichage de la page permettant au createur de rendre une liste publique
+$app->get('/createur/rendre_publique/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->publicationListe($name);
+})->name('rendre_publique');
+
+// Modification de la confidentialité de la liste
+$app->post('/createur/rendre_publique/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->publierListe($name);
+});
+
 // Affichage d'une page permettant d'ajouter une image à un item
 $app->get('/createur/ajouter_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
@@ -152,10 +177,7 @@ $app->post('/createur/modifier_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
 });
 
-$app->get('/accueil', function () {
-	$c = new ControleurUtilisateur();
-	$c->pageAccueil();
-})->name('accueil');
+
 
 
 $app->run();

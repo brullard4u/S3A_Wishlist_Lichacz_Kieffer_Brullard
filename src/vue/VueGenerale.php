@@ -21,6 +21,7 @@ abstract class VueGenerale
         $lsp = $app->urlFor('aff_liste');
         $cls = $app->urlFor('creation_liste');
         $ac = $app->urlFor('accueil');
+        $ls = $app->urlFor('cons_liste');
         if ($this->role == "createur")
             $title = "Création de liste de souhaits";
         else
@@ -45,7 +46,7 @@ abstract class VueGenerale
                     <a href="#">Mon compte </a>
                         <ul class ="sous" > 
                             <li><a href="$cls">Créer une liste</a></li>
-                            <li><a href="#">Mes listes</a></li>
+                            <li><a href="$ls">Mes listes</a></li>
                         </ul>
                 </li>
                 <li class = "connect"><a href="#">Se déconnecter </a></li>
@@ -63,12 +64,5 @@ abstract class VueGenerale
         </body>
         </html>
         FIN;
-    }
-
-    public function __get($at)
-    {
-        if (property_exists($this, $at)) {
-            return $this->$at;
-        } else throw new \Exception("$at : invalid property");
     }
 }
