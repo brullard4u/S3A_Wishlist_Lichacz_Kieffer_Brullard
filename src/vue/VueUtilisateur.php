@@ -17,6 +17,17 @@ class VueUtilisateur
         $con = $app->urlFor('connexion_uti');
         $lsp = $app->urlFor('aff_liste');
         $ac = $app->urlFor('accueil');
+        if(is_null($_SESSION)) {
+            $connect = <<<FIN
+            <li class = "connect"><a href="$con">Se connecter </a></li>
+            <li class = "connect"><a href="$ins"> S'inscrire </a></li>
+            FIN;
+        } else {
+            $connect = <<<FIN
+            <li class = "connect"><a href="#">Se déconnecter </a></li>
+            FIN;
+        }
+
         echo <<<END
         <!DOCTYPE html>
         <html lang="fr">
@@ -32,8 +43,7 @@ class VueUtilisateur
                     <ul>
                         <li><a href="$ac">Projet PHP MyWishList</a></li>
                         <li ><a href="$lsp">Liste </a></li>
-                        <li class = "connect"><a href="$con">Se connecter </a></li>
-                        <li class = "connect"><a href="$ins"> S'inscrire </a></li>
+                        $connect
                     </ul>
                 </nav>
             </header>

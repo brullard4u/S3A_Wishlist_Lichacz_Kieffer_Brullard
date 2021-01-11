@@ -1,7 +1,9 @@
 <?php
 
 namespace mywishlist\vue;
+
 use Slim\Slim;
+
 abstract class VueGenerale
 {
 
@@ -22,11 +24,23 @@ abstract class VueGenerale
         $cls = $app->urlFor('creation_liste');
         $ac = $app->urlFor('accueil');
         $ls = $app->urlFor('cons_liste');
+        $ins = $app->urlFor('inscription_uti');
+        $con = $app->urlFor('connexion_uti');
         if ($this->role == "createur")
             $title = "Création de liste de souhaits";
         else
             $title = "Participation à une liste de cadeaux";
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
+        if(is_null($this->role)) {
+            $connect = <<<FIN
+            <li class = "connect"><a href="$con">Se connecter </a></li>
+            <li class = "connect"><a href="$ins"> S'inscrire </a></li>
+            FIN;
+        } else {
+            $connect = <<<FIN
+            <li class = "connect"><a href="#">Se déconnecter </a></li>
+            FIN;
+        }
         return <<<FIN
         <!DOCTYPE html>
         <html lang="fr">
@@ -49,8 +63,7 @@ abstract class VueGenerale
                             <li><a href="$ls">Mes listes</a></li>
                         </ul>
                 </li>
-                <li class = "connect"><a href="#">Se déconnecter </a></li>
-               
+                $connect
             </ul>
         </nav>
         </header>

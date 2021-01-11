@@ -38,12 +38,16 @@ class VueItem extends VueGenerale
         $url1 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url2 = $app->urlFor('modifier_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url3 = $app->urlFor('supprimer_img', array('name' => $this->liste->token, 'id' => $this->item->id));
+        $url4 = $app->urlFor('modif_item', array('name' => $this->liste->token, 'id' => $this->item->id));
+        $url5 = $app->urlFor('supp_item', array('name' => $this->liste->token, 'id' => $this->item->id));
         if (!empty($this->item->url))
             $url = "<a href={$this->item->url}>Achetable ici</a>";
         $this->html = <<<FIN
         <p><a href=$url1>Ajouter une image</a></p>
         <p><a href=$url2>Modifier l'image</a></p>
         <p><a href=$url3>Supprimer l'image</a></p>
+        <p><a href=$url4>Modifier l'item</a></p>
+        <p><a href=$url5>Supprimer l'item</a></p>
         <h2>{$this->item->nom}</h2>
         <p>{$this->item->descr} {$url}</p>
         <p>{$this->item->tarif}€</p>
@@ -168,24 +172,12 @@ class VueItem extends VueGenerale
         }
     }
 
-    /**public function render()
+    public function affSupprimer()
     {
-        $app = \Slim\Slim::getInstance();
-        $url = $app->urlFor($this->role == "participant" ? 'consulter_liste' : 'voir_liste', array('name' => $this->liste->token));
-        // Ou placer consutler liste dans vue liste ??
-        $this->html = $this->afficherItemDetail();
-        $this->menu = "<a href='$url'>{$this->liste->titre}</a>";
-        return parent::render();
-    }
-     */
-
-
-
-    public function affSupprimer(){
         $app = Slim::getInstance();
         $this->html .= <<<FIN
         <h2>Suppression de l'item</h2>
-        <h3>Voulez-vous vraiment supprimer l'item suivante ?</h3>
+        <h3>Voulez-vous vraiment supprimer l'item suivant ?</h3>
         <h2>{$this->item->nom}</h2>
         <form method='post' action=''>
         <input type='submit' class='submit' value='Supprimer'>
@@ -193,13 +185,13 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-
-    public function affSuppression(){
+    public function affSuppression()
+    {
         $app = Slim::getInstance();
-        $ls = $app->urlFor('cons_liste');
+        $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));
         $this->html .= <<<FIN
-        <h3>L'item vient d'etre supprimer</h3>
-        <p><a href=$ls>retourner au liste</a></p>
+        <h3>L'item vient d'etre supprimé</h3>
+        <p><a href=$url>Retourner à la liste</a></p>
         FIN;
     }
 }

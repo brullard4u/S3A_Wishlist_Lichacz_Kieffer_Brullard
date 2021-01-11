@@ -58,15 +58,27 @@ $app->post('/createur/nouvel_item/:name', function ($name) use ($app) {
 });
 
 // Affichage de la page pour modifier un item
-$app->get('/createur/modifier_item/:name/:id' , function ($name, $id) {
-    $c = new ControleurItem($name);
-    $c->modificationItem($id);
-});
+$app->get('/createur/modifier_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->modificationItem($id);
+})->name('modif_item');
 
 // Modification d'un item
-$app->post('/createur/modifier_item/:name/:id' , function ($name, $id) {
-    $c = new ControleurItem($name);
-    $c->modifierItem($id);
+$app->post('/createur/modifier_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->modifierItem($id);
+});
+
+// Affichage de la page pour supprimer un item
+$app->post('/createur/supprimer_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->supprimerItem($id);
+})->name('supp_item');
+
+// Suppression d'un item
+$app->get('/createur/supprimer_item/:name/:id', function ($name, $id) {
+	$c = new ControleurItem($name);
+	$c->suppressionItem($id);
 });
 
 // Affichage de la page permettant de choisir une liste
@@ -202,15 +214,7 @@ $app->post('/createur/supprimer_image/:name/:id', function ($name, $id) {
 });
 
 
-$app->post('/createur/supprimer_item/:name/:id', function ($name, $id) {
-	$c = new ControleurItem($name);
-	$c->supprimerItem($id);
-});
 
-$app->get('/createur/supprimer_item/:name/:id', function ($name, $id) {
-	$c = new ControleurItem($name);
-	$c->suppressionItem($id);
-});
 
 
 
