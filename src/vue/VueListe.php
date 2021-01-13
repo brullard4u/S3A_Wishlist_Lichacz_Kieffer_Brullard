@@ -101,7 +101,7 @@ class VueListe extends VueGenerale
         $add = "";
 
         // On test si c'est bien l'auteur de la liste actuelle
-        if($this->role == "createur" && $this->user_id ==  $this->liste->user_id) {
+        if ($this->role == "createur" && $this->user_id ==  $this->liste->user_id) {
             $this->title = "Affichage et gestion de votre liste";
             $url = $app->urlFor('formulaire_item', array('name' => $this->liste->token));
             $gestion .= "<p class='ajout'><a href='$url'>Ajouter un item</a></p>";
@@ -111,8 +111,8 @@ class VueListe extends VueGenerale
             $gestion .= "<p class='sup'><a href='$url'>Supprimer la liste</a></p>";
             $url = $app->urlFor('rendre_publique', array('name' => $this->liste->token));
             $gestion .= "<p class='public'><a href='$url'>Rendre la liste publique</a></p>";
-        } 
-        
+        }
+
         // On test si la date d'échéance de la liste est dépassée ou si la liste est consultée par un participant,
         // si c'est le cas on affiche les messages
         if ($this->role != "createur" || ($this->role == "createur" &&  $this->liste->expiration <= $today)) {
@@ -125,11 +125,11 @@ class VueListe extends VueGenerale
                     $messages .= "<p>\"$commentaire->message\"</p>";
                 }
                 $messages .= "</div>";
-            }   
+            }
         }
 
         // Possibilité de laisser un message pour les participants
-        if($this->role != "createur" || ($this->role == "createur" && $this->user_id != $this->liste->user_id)) {
+        if ($this->role != "createur" || ($this->role == "createur" && $this->user_id != $this->liste->user_id)) {
             $add = <<<FIN
             <form method='post' action=''>
             <p>Laisser un message:</p>
@@ -205,7 +205,7 @@ class VueListe extends VueGenerale
         $this->html = <<<FIN
         <h3>La liste "{$this->liste->titre}" a été modifée avec succès</h3>
         FIN;
-        $this->title ="Mise à jour de la liste";
+        $this->title = "Mise à jour de la liste";
         $this->afficherListe();
     }
 
@@ -227,7 +227,7 @@ class VueListe extends VueGenerale
     {
         $app = \Slim\Slim::getInstance();
         $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
-        $this->title ="Mise à jour de la liste";
+        $this->title = "Mise à jour de la liste";
         $this->html = <<<FIN
         <h3>Votre liste a bien été passé en publique </h3>
         FIN;

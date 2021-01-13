@@ -2,6 +2,7 @@
 
 namespace mywishlist\vue;
 
+use finfo;
 use Slim\Slim;
 
 class VueUtilisateur
@@ -18,7 +19,8 @@ class VueUtilisateur
 
     */
 
-    public function render() {
+    public function render()
+    {
         $app = Slim::getInstance();
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
         $ins = $app->urlFor('inscription_uti');
@@ -27,8 +29,8 @@ class VueUtilisateur
         $ac = $app->urlFor('accueil');
         $cls = $app->urlFor('creation_liste');
         $ls = $app->urlFor('cons_liste');
-        $deco = '';
-        if(!isset($_SESSION['profile'])) {
+        $deco = $app->urlFor('deconnexion_uti');
+        if (!isset($_SESSION['profile'])) {
             $connect = <<<FIN
             <li class = "connect"><a href="$con">Se connecter </a></li>
             <li class = "connect"><a href="$ins"> S'inscrire </a></li>
@@ -80,7 +82,7 @@ class VueUtilisateur
         </html>
         END;
     }
-  
+
 
     public function registerForm()
     {
@@ -96,7 +98,8 @@ class VueUtilisateur
         $this->render();
     }
 
-    public function logInForm() {
+    public function logInForm()
+    {
         $app = Slim::getInstance();
         $url = $app->urlFor('inscription_uti');
         $this->html .= <<<FIN
@@ -113,12 +116,8 @@ class VueUtilisateur
         $this->render();
     }
 
-    public function logOut() {
-        $this->html .= "<h2>Vous avez bien été déconnecté.</h2>";
-        $this->logInForm();
-    }
-
-    public function afterRegisterForm(){
+    public function afterRegisterForm()
+    {
         $app = Slim::getInstance();
         $url = $app->urlFor('connexion_uti');
         $this->html = <<<FIN
@@ -126,12 +125,12 @@ class VueUtilisateur
         <p>Vous pouvez maintenant vous connecter en utilisant vos identifiants </p>
         <a href=$url>Page de connexion</a>
         FIN;
-        $this->title ="Enregistrement validé";
+        $this->title = "Enregistrement validé";
         $this->render();
     }
 
-
-    public function connected(){
+    public function connected()
+    {
         $name = $_SESSION['profile']['username'];
         $this->html = <<<FIN
         <h3>Bonjour $name ! Vous êtes connecté.</h3>
@@ -140,7 +139,8 @@ class VueUtilisateur
         $this->render();
     }
 
-    public function notConnected(){
+    public function notConnected()
+    {
         $app = Slim::getInstance();
         $url = $app->urlFor('connexion_uti');
         $this->html = <<<FIN
@@ -152,7 +152,8 @@ class VueUtilisateur
         $this->render();
     }
 
-    public function affichageAccueil(){
+    public function affichageAccueil()
+    {
         $this->html = <<<FIN
         <h3>Bienvenue sur le site MyWishlist!<br> Ici vous pourrez créer vos propres listes de souhaits personalisables au maximum!<br> 
         Pour pourrez créer des listes de cadeaux pour n'importe quel évènement,<br> que ce soit pour un anniversaire, une crémaillère ou autres.<br>
@@ -164,7 +165,4 @@ class VueUtilisateur
         $this->title = "Accueil";
         $this->render();
     }
-
-
-
 }

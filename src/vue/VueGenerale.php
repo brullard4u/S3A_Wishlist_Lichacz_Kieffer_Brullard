@@ -28,9 +28,9 @@ abstract class VueGenerale
         $ls = $app->urlFor('cons_liste');
         $ins = $app->urlFor('inscription_uti');
         $con = $app->urlFor('connexion_uti');
+        $deco = $app->urlFor('deconnexion_uti');
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
-        $deco = '';
-        if(!isset($_SESSION['profile'])) {
+        if (!isset($_SESSION['profile'])) {
             $connect = <<<FIN
             <li class = "connect"><a href="$con">Se connecter </a></li>
             <li class = "connect"><a href="$ins"> S'inscrire </a></li>

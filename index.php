@@ -44,8 +44,14 @@ $app->get('/connexion', function () {
 // Connexion de l'utilisateur si les informations renseignees sont verifiees dans la BDD
 $app->post('/connexion', function () use ($app) {
 	$c = new ControleurUtilisateur();
-	$i = $c->authenticateUser(filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING), $app->request->post('password'));
+	$c->authenticateUser(filter_var($app->request->post('nom'), FILTER_SANITIZE_STRING), $app->request->post('password'));
 });
+
+// Deconnexion de l'utilisateur
+$app->get('/deconnexion', function () {
+	$c = new ControleurUtilisateur();
+	$c->logOut();
+})->name('deconnexion_uti');
 
 // Affichage de la page permettant de creer/ajouter un nouvel item dans la liste de souhait donnee
 $app->get('/createur/nouvel_item/:name', function ($name) {
@@ -200,7 +206,7 @@ $app->get('/createur/modifier_image/:name/:id', function ($name, $id) {
 // Mise a jour de l'image de l'item
 $app->post('/createur/modifier_image/:name/:id', function ($name, $id) {
 	$c = new ControleurItem($name);
-	$c->modificationImage($id);
+	$c->enregistrerImage($id);
 });
 
 // Affichage d'une page permettant de supprimer l'image d'un item

@@ -31,13 +31,13 @@ class ControleurUtilisateur
         $v->logInForm();
     }
 
-    public function logOut() {
-        session_destroy();
-        $v = new VueUtilisateur();
-        $v->logOut();
+    public function logOut()
+    {
+        session_unset();
+        $this->pageAccueil();
     }
 
-    public function authenticateUser(string $nom, string $password): Utilisateur
+    public function authenticateUser(string $nom, string $password)
     {
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
         if (!is_null($utilisateur)) {
@@ -59,14 +59,11 @@ class ControleurUtilisateur
             $v = new VueUtilisateur();
             $v->notConnected();
         }
-        return $utilisateur;
     }
 
-
-
-    public function pageAccueil(){
+    public function pageAccueil()
+    {
         $v = new VueUtilisateur();
         $v->affichageAccueil();
     }
-
 }
