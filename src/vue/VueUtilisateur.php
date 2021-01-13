@@ -10,6 +10,14 @@ class VueUtilisateur
     private $title;
     private $html;
 
+    /*
+    L'onglet "Mes participations à des listes" permet à un utilisateur connecté d'afficher les listes auquel il participe
+    L'onglet "Mes cagnottes" permet à un utilisateur connecté d'afficher les cagnottes qu'il  a créé
+    L'onglet "Mes participations à des cagnottes"permet à un utilisateur connecté d'afficher les cagnottes auquel il participe
+    L'onglet "Consulter les cagnottes" permet d'afficher les cagnottes publiques
+
+    */
+
     public function render() {
         $app = Slim::getInstance();
         $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
@@ -32,6 +40,9 @@ class VueUtilisateur
                     <ul class ="sous" > 
                         <li><a href="$cls">Créer une liste</a></li>
                         <li><a href="$ls">Mes listes</a></li>
+                        <li><a href="#">Mes participations à des listes</a></li>
+                        <li><a href="#">Mes cagnottes</a></li>
+                        <li><a href="#">Mes participations à des cagnottes</a></li>
                     </ul>
             </li>
             <li class = "connect"><a href="$deco">Se déconnecter </a></li>
@@ -53,7 +64,9 @@ class VueUtilisateur
                     <ul>
                         <li><a href="$ac">Projet PHP MyWishList</a></li>
                         <li ><a href="$lsp">Consulter les listes</a></li>
+                        <li ><a href="#">Consulter les cagnottes</a></li>
                         $connect
+                        
                     </ul>
                 </nav>
             </header>
