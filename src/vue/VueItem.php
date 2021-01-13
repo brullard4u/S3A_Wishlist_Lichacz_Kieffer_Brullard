@@ -106,7 +106,9 @@ class VueItem extends VueGenerale
         <p>{$this->item->descr} {$url}</p>
         <p>{$this->item->tarif}€</p>
         <p><img src=/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img} alt="Photo indisponible" height="400px" width="auto"></p>
+        <div class='choisi'>
         $txt
+        </div>
         FIN;
     }
 
