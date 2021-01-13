@@ -8,6 +8,8 @@ use mywishlist\controleur\ControleurUtilisateur;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
+// Attention, la BDD a été modifié pour convenir aux besoins de certaines fonctionnalités, 
+// pour garantir le bon fonctionnement de l'application il faut créer la BDD à l'aide du fichier mywishlist.sql disponible dans le dossier src
 
 Eloquent::start(__DIR__ . '/conf/db.config.ini');
 

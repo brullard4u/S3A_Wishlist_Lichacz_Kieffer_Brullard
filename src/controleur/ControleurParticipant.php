@@ -23,7 +23,7 @@ class ControleurParticipant
         $liste = Liste::where('token', '=', $name)->first();
         $item = Item::where('liste_id', '=', $liste->no)->where('id', '=', $id)->first();
         $aff = new VueItem($liste, $item);
-        $aff->afficherItemDetail();
+        $aff->afficherItemParticipant();
         echo $aff->render();
     }
 

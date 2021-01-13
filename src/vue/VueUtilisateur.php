@@ -17,14 +17,24 @@ class VueUtilisateur
         $con = $app->urlFor('connexion_uti');
         $lsp = $app->urlFor('aff_liste');
         $ac = $app->urlFor('accueil');
-        if(is_null($_SESSION)) {
+        $cls = $app->urlFor('creation_liste');
+        $ls = $app->urlFor('cons_liste');
+        $deco = '';
+        if(!isset($_SESSION['profile'])) {
             $connect = <<<FIN
             <li class = "connect"><a href="$con">Se connecter </a></li>
             <li class = "connect"><a href="$ins"> S'inscrire </a></li>
             FIN;
         } else {
             $connect = <<<FIN
-            <li class = "connect"><a href="#">Se déconnecter </a></li>
+            <li >
+                <a href="#">Mon compte</a>
+                    <ul class ="sous" > 
+                        <li><a href="$cls">Créer une liste</a></li>
+                        <li><a href="$ls">Mes listes</a></li>
+                    </ul>
+            </li>
+            <li class = "connect"><a href="$deco">Se déconnecter </a></li>
             FIN;
         }
 
@@ -42,7 +52,7 @@ class VueUtilisateur
                 <nav class ="menu">
                     <ul>
                         <li><a href="$ac">Projet PHP MyWishList</a></li>
-                        <li ><a href="$lsp">Liste </a></li>
+                        <li ><a href="$lsp">Consulter les listes</a></li>
                         $connect
                     </ul>
                 </nav>
@@ -83,11 +93,9 @@ class VueUtilisateur
         <p>Mot de passe: <input type="password" name="password"></p>
         <input type="submit" name="i" class="submit" value="Se connecter">
         </form>
-        FIN;
-        /*
         <h3>Pas encore enregistré ?</h3>
         <a href=$url>Enregistrez-vous ici</a>
-        */
+        FIN;
         $this->title = "Connexion";
         $this->render();
     }
@@ -106,7 +114,6 @@ class VueUtilisateur
         <a href=$url>Page de connexion</a>
         FIN;
         $this->title ="Enregistrement validé";
-
         $this->render();
     }
 
@@ -128,13 +135,14 @@ class VueUtilisateur
         <p>Identifiant ou mot de passe incorrect.</p>
         <a href=$url>réessayer</a>
         FIN;
-        $this->title = "Connexion";
+        $this->title = "Erreur";
         $this->render();
     }
 
     public function affichageAccueil(){
         $this->html = <<<FIN
-        <h3>Bienvenue sur le site MyWishlist!<br> Ici vous pourrez créer vos propres listes de souhaits personalisables au maximum!<br> Pour pourrez créer des listes de cadeaux pour des événements que vous voudrez,<br> que ce soit pour un anniversaire, une crémaillère ou autres.<br>
+        <h3>Bienvenue sur le site MyWishlist!<br> Ici vous pourrez créer vos propres listes de souhaits personalisables au maximum!<br> 
+        Pour pourrez créer des listes de cadeaux pour n'importe quel évènement,<br> que ce soit pour un anniversaire, une crémaillère ou autres.<br>
         N'hésitez pas à partager vos listes avec les autres personnes!<br> Et vous pourrez toujours venir les consulter en temps voulu </h3>
         <div class="a_img">
         <img src="/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/portrait-couple-personnes-agees-heureux-cadeau-anniversaire-fond-bleu_23-2147951814.jpg">

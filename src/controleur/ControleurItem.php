@@ -68,7 +68,7 @@ class ControleurItem
     {
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
         $aff = new VueItem($this->liste, $item);
-        $aff->afficherItem();
+        $aff->afficherItemCreateur();
         echo $aff->render(); // methode render de la vue item
     }
 
