@@ -42,14 +42,11 @@ class ControleurUtilisateur
         $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
         if (!is_null($utilisateur)) {
             if (password_verify($password, $utilisateur->password)) {
-                $role = "";
-                $liste = Liste::where('user_id', '=', $utilisateur->user_id)->first();
-                if (is_null($liste))
-                    $role = "participant";
-                else
-                    $role = "createur";
+                $role = "createur";
                 $_SESSION['profile'] = array('username' => $utilisateur->nom, 'userid' => $utilisateur->user_id, 'role' => $role);
                 $v = new VueUtilisateur();
+                $v->role = $_SESSION['profile']['role'];
+                $v->user_id = $_SESSION['profile']['userid'];
                 $v->connected();
             } else {
                 $v = new VueUtilisateur();

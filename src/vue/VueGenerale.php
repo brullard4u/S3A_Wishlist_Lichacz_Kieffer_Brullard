@@ -7,7 +7,8 @@ use Slim\Slim;
 abstract class VueGenerale
 {
 
-    protected $html, $menu, $title, $role, $user_id;
+    protected $html, $menu, $title;
+    protected $role, $user_id;
 
     public function __construct()
     {

@@ -99,7 +99,6 @@ class VueListe extends VueGenerale
         $messages = "";
         $items = "";
         $add = "";
-
         // On test si c'est bien l'auteur de la liste actuelle
         if ($this->role == "createur" && $this->user_id ==  $this->liste->user_id) {
             $this->title = "Affichage et gestion de votre liste";
