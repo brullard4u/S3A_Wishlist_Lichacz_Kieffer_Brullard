@@ -124,8 +124,9 @@ class VueListe extends VueGenerale
                 foreach ($commentaires as $commentaire) {
                     $messages .= "<p>\"$commentaire->message\"</p>";
                 }
-                $messages .= "</div>";
+               
             }
+            $messages .= "</div>";
         }
 
         // Possibilité de laisser un message pour les participants

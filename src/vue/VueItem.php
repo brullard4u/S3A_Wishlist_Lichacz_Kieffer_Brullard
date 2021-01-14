@@ -73,11 +73,11 @@ class VueItem extends VueGenerale
         FIN;
         if (!empty($this->item->acquereur)) {
             if($today < $this->liste->expiration)
-                $this->html .= "<br><p>Cet item a été choisi !</p>";
+                $this->html .= "<div class='choisi'><br><p>Cet item a été choisi !</p></div>";
             else
-                $this->html .= "<br><p>Cet item a été choisi par {$this->item->acquereur} qui a laissé le message suivant : \"{$this->item->message}\"</p>";
+                $this->html .= "<div class='choisi'><br><p>Cet item a été choisi par {$this->item->acquereur} qui a laissé le message suivant : \"{$this->item->message}\"</p></div>";
         } else {
-            $this->html .= "<br><p>Cet item n'a pas été choisi !</p>";
+            $this->html .= "<div class='choisi'><br><p>Cet item n'a pas été choisi !</p></div>";
         }
     }
 

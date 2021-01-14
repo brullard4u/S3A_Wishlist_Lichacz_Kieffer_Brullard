@@ -42,6 +42,9 @@ abstract class VueGenerale
                     <ul class ="sous" > 
                         <li><a href="$cls">Créer une liste</a></li>
                         <li><a href="$ls">Mes listes</a></li>
+                        <li><a href="#">Mes participations à des listes</a></li>
+                        <li><a href="#">Mes cagnottes</a></li>
+                        <li><a href="#">Mes participations à des cagnottes</a></li>
                     </ul>
             </li>
             <li class = "connect"><a href="$deco">Se déconnecter </a></li>
@@ -62,6 +65,7 @@ abstract class VueGenerale
             <ul>
                 <li><a href=$ac>Projet PHP MyWishList</a></li>
                 <li><a href="$lsp">Consulter les listes</a></li>
+                <li ><a href="#">Consulter les cagnottes</a></li>
                 $connect
             </ul>
         </nav>
