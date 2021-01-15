@@ -74,7 +74,7 @@ class ControleurUtilisateur
         $utilisateur = Utilisateur::where('user_id', '=', $usr)->first();
         if(!is_null($utilisateur)){
         $utilisateur->delete();
-        $this->pageAccueil();
+        $this->logOut();
         }else{
             $v = new VueUtilisateur();
             $v->affichageNotSup();
@@ -85,5 +85,26 @@ class ControleurUtilisateur
     public function suppressionCompte(){
         $v = new VueUtilisateur();
         $v->affichageSuppressionCompte();
+    }
+
+    public function modifierCompte(){
+        $app = \Slim\Slim::getInstance();
+        $nom = $_SESSION['profile']['username'];
+        $password = filter_var($app->request->post('password'), FILTER_SANITIZE_STRING);
+        Utilisateur::where('nom', '=', $nom)->update(['password' => password_hash($password, PASSWORD_DEFAULT, ['cost' => 12])]);
+        $v = new VueUtilisateur();
+        $this->logOut();
+    }
+
+    public function modificationCompte() {
+        if(isset($_SESSION['profile'])) {
+            $nom = $_SESSION['profile']['username'];
+            $utilisateur = Utilisateur::where('nom', '=', $nom)->first();
+            $v = new VueUtilisateur();
+            $v->modifierCompte();
+            echo $v->render();
+        } else {
+            $this->logInForm();
+        }
     }
 }

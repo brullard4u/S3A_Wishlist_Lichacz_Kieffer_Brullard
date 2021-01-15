@@ -221,22 +221,36 @@ $app->post('/createur/supprimer_image/:name/:id', function ($name, $id) {
 	$c->suppressionImage($id);
 });
 
+// Affichage d'une page pour l'espace personnel
 $app->get('/createur/espace_personnel', function () {
 	$c = new ControleurUtilisateur();
 	$c->affichageEspacePerso();
 })->name('es_p');
 
+// Suppression du compte
 $app->post('/createur/supprimer_compte', function () {
 	$c = new ControleurUtilisateur();
 	$c->supprimerCompte();
 });
 
+// Affichage d'une page pour la suppression du compte
 $app->get('/createur/supprimer_compte', function () {
 	$c = new ControleurUtilisateur();
 	$c->suppressionCompte();
 })->name('supprimerCompte');
 
 
+// Affichage de la page de modification du compte
+$app->get('/createur/modifier_compte/', function (){
+    $c = new ControleurUtilisateur();
+    $c->modificationCompte();
+});
+
+// Modifier le compte
+$app->post('/createur/modifier_compte/', function (){
+    $c = new ControleurUtilisateur();
+    $c->modifierCompte();
+});
 
 
 $app->run();

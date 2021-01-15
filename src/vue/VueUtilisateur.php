@@ -36,12 +36,11 @@ class VueUtilisateur
         } else {
             $connect = <<<FIN
             <li >
-                <a href="#">Mon compte</a>
+                <a href=$esp>Mon compte</a>
                     <ul class ="sous" > 
                         <li><a href="$cls">Créer une liste</a></li>
                         <li><a href="$ls">Mes listes</a></li>
                         <li><a href="#">Mes participations à des listes</a></li>
-                        <li><a href="$esp">Espace personnel</a></li>
                     </ul>
             </li>
             <li class = "connect"><a href="$deco">Se déconnecter </a></li>
@@ -165,9 +164,11 @@ class VueUtilisateur
     public function affEsP(){
         $app =Slim::getInstance();
         $url =$app->urlfor('supprimerCompte');
+        $urlMod = $app->urlFor('modifier_compte');
         $this->html = <<<FIN
-        <h3>Espace personnel</h3>
+        <h3>Bienvenue sur votre espace personnel</h3>
         <p><a href=$url>Supprimer votre compte</a></p>
+        <p><a href=$urlMod>Modifier votre compte</p>
         FIN;
         $this->title = "Espace Personnel";
         $this->render();
@@ -190,5 +191,17 @@ class VueUtilisateur
         
         FIN;
         $this->render();
+    }
+
+    public function modifierCompte(){
+        $app = Slim::getInstance();
+        $this->title = "Modification du compte";
+        $this->html .= <<<FIN
+        <h3>Voulez vous modifier votre compte?</h3>
+        <form method='post' action=''>
+        <p>Nouveau mot de passe: <input type="password" name="password"></p>
+        <p><input type='submit' class='submit' value='Modifier'></p>
+        </form>
+        FIN;
     }
 }

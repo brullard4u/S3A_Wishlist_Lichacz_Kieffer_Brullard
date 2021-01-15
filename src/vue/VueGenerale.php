@@ -40,12 +40,11 @@ abstract class VueGenerale
         } else {
             $connect = <<<FIN
             <li >
-                <a href="#">Mon compte</a>
+                <a href=$esp>Mon compte</a>
                     <ul class ="sous" > 
                         <li><a href="$cls">Créer une liste</a></li>
                         <li><a href="$ls">Mes listes</a></li>
                         <li><a href="#">Mes participations à des listes</a></li>
-                        <li><a href="$esp">Espace personnel</a></li>
                     </ul>
             </li>
             <li class = "connect"><a href="$deco">Se déconnecter </a></li>
