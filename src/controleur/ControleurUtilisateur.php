@@ -63,4 +63,27 @@ class ControleurUtilisateur
         $v = new VueUtilisateur();
         $v->affichageAccueil();
     }
+
+    public function affichageEspacePerso(){
+        $v = new VueUtilisateur();
+        $v->affEsP();
+    }
+
+    public function supprimerCompte(){
+        $usr = $_SESSION['profile']['userid'];
+        $utilisateur = Utilisateur::where('user_id', '=', $usr)->first();
+        if(!is_null($utilisateur)){
+        $utilisateur->delete();
+        $this->pageAccueil();
+        }else{
+            $v = new VueUtilisateur();
+            $v->affichageNotSup();
+        }
+    
+    }
+
+    public function suppressionCompte(){
+        $v = new VueUtilisateur();
+        $v->affichageSuppressionCompte();
+    }
 }

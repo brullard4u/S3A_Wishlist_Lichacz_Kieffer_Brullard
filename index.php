@@ -221,8 +221,20 @@ $app->post('/createur/supprimer_image/:name/:id', function ($name, $id) {
 	$c->suppressionImage($id);
 });
 
+$app->get('/createur/espace_personnel', function () {
+	$c = new ControleurUtilisateur();
+	$c->affichageEspacePerso();
+})->name('es_p');
 
+$app->post('/createur/supprimer_compte', function () {
+	$c = new ControleurUtilisateur();
+	$c->supprimerCompte();
+});
 
+$app->get('/createur/supprimer_compte', function () {
+	$c = new ControleurUtilisateur();
+	$c->suppressionCompte();
+})->name('supprimerCompte');
 
 
 

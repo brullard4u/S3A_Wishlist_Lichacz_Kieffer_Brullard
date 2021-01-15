@@ -13,9 +13,6 @@ class VueUtilisateur
 
     /*
     L'onglet "Mes participations à des listes" permet à un utilisateur connecté d'afficher les listes auquel il participe
-    L'onglet "Mes cagnottes" permet à un utilisateur connecté d'afficher les cagnottes qu'il  a créé
-    L'onglet "Mes participations à des cagnottes"permet à un utilisateur connecté d'afficher les cagnottes auquel il participe
-    L'onglet "Consulter les cagnottes" permet d'afficher les cagnottes publiques
 
     */
 
@@ -30,6 +27,7 @@ class VueUtilisateur
         $cls = $app->urlFor('creation_liste');
         $ls = $app->urlFor('cons_liste');
         $deco = $app->urlFor('deconnexion_uti');
+        $esp = $app->urlFor('es_p');
         if (!isset($_SESSION['profile'])) {
             $connect = <<<FIN
             <li class = "connect"><a href="$con">Se connecter </a></li>
@@ -43,8 +41,7 @@ class VueUtilisateur
                         <li><a href="$cls">Créer une liste</a></li>
                         <li><a href="$ls">Mes listes</a></li>
                         <li><a href="#">Mes participations à des listes</a></li>
-                        <li><a href="#">Mes cagnottes</a></li>
-                        <li><a href="#">Mes participations à des cagnottes</a></li>
+                        <li><a href="$esp">Espace personnel</a></li>
                     </ul>
             </li>
             <li class = "connect"><a href="$deco">Se déconnecter </a></li>
@@ -66,7 +63,6 @@ class VueUtilisateur
                     <ul>
                         <li><a href="$ac">Projet PHP MyWishList</a></li>
                         <li ><a href="$lsp">Consulter les listes</a></li>
-                        <li ><a href="#">Consulter les cagnottes</a></li>
                         $connect
                         
                     </ul>
@@ -163,6 +159,36 @@ class VueUtilisateur
         </div>
         FIN;
         $this->title = "Accueil";
+        $this->render();
+    }
+
+    public function affEsP(){
+        $app =Slim::getInstance();
+        $url =$app->urlfor('supprimerCompte');
+        $this->html = <<<FIN
+        <h3>Espace personnel</h3>
+        <p><a href=$url>Supprimer votre compte</a></p>
+        FIN;
+        $this->title = "Espace Personnel";
+        $this->render();
+    }
+
+    public function affichageSuppressionCompte(){
+        $this->html .= <<<FIN
+        <h3>Voulez-vous vraiment supprimer votre compte ?</h3>
+        <form method='post' action=''>
+        <input type='submit' class='submit' value='Supprimer'>
+        </form>
+        FIN;
+        $this->title = "Supprimer Compte";
+        $this->render();
+    }
+
+    public function affichageNotSup(){
+        $this->html .= <<<FIN
+        <h3>nous n'avons pas supprimer le compte car il n'existe pas</h3>
+        
+        FIN;
         $this->render();
     }
 }

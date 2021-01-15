@@ -6,7 +6,7 @@ class utilisateur extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'utilisateur';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
     public $timestamps = false;
 
     public static function getCurrentUser()
