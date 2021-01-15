@@ -108,8 +108,13 @@ class VueListe extends VueGenerale
             $gestion .= "<p class ='modif'><a href='$url'>Modifier la liste</a></p>";
             $url = $app->urlFor('supprimer_liste', array('name' => $this->liste->token));
             $gestion .= "<p class='sup'><a href='$url'>Supprimer la liste</a></p>";
-            $url = $app->urlFor('rendre_publique', array('name' => $this->liste->token));
-            $gestion .= "<p class='public'><a href='$url'>Rendre la liste publique</a></p>";
+
+            if($this->liste->privacy == "private") {
+                $url = $app->urlFor('rendre_publique', array('name' => $this->liste->token));
+                $gestion .= "<p class='public'><a href='$url'>Rendre la liste publique</a></p>";
+            }
+            $url = $app->urlFor('partager', array('name' => $this->liste->token));  
+            $gestion .= "<p class='share'><a href='$url'>Partager votre liste</a></p>"; 
         }
 
         // On test si la date d'échéance de la liste est dépassée ou si la liste est consultée par un participant,
@@ -231,7 +236,18 @@ class VueListe extends VueGenerale
         $this->html = <<<FIN
         <h3>Votre liste a bien été passé en publique </h3>
         FIN;
-        $this->afficherListe();
-        $this->render();
+        $this->afficherListe();;
+    }
+
+    public function partagerListe() {
+        $this->title = "Partage d'une liste";
+        $this->html = <<<FIN
+        <h3>Voulez-vous envoyer un lien d'invitation vers votre liste ?</h3>
+        <form method='post' action=''>
+        <p>Votre email: <input type='text' name='expeditaire'></p>
+        <p>Email du destinataire: <input type="text" name='destinataire'></p>
+        <input type='submit'class='submit' value='Envoyer'>
+        </form>
+        FIN;
     }
 }

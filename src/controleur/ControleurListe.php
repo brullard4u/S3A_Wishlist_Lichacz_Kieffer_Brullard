@@ -109,10 +109,34 @@ class ControleurListe
 
     public function publierListe($name)
     {
+        Liste::where('token', '=', $name)->update(['privacy' => 'public']);
         $liste = Liste::where('token', '=', $name)->first();
-        $liste->privacy = 'pulic';
         $v = new VueListe($liste);
         $v->postChangementEtatListe();
         echo $v->render();
+    }
+
+    public function partagerListe($name)
+    {
+        $liste = Liste::where('token', '=', $name)->first();
+        $v = new VueListe($liste);
+        $v->partagerListe();
+        echo $v->render();
+    }
+
+    public function envoyerInvitation($name)
+    {
+        $app = \Slim\Slim::getInstance();
+        $liste = Liste::where('token', '=', $name)->first();
+        $link = "http://workspace/S3A_Wishlist_Lichacz_Kieffer_Brullard/participant/aff_liste/" . $liste->token;
+        $expiditeur = filter_var($$app->request->post('expediteur'), FILTER_SANITIZE_STRING);
+        $destinataire = filter_var($$app->request->post('destinataire'), FILTER_SANITIZE_STRING);;
+        $subjet = 'Invitation à ma liste de souhaits';
+        $message = "Vous avez été invité à participer à la liste de souhait {$liste->titre}\n
+                    Cliquez sur le lien suivant : $link";
+        $header = "From: $expiditeur\r\n";
+        $header .= "Disposition-Notification-To: $expiditeur";
+        mail($destinataire, $subjet, $message, $header);
+        $this->afficherListe($name);
     }
 }

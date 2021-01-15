@@ -131,6 +131,12 @@ input {
     left: 460px;
 }
 
+.share {
+    position: absolute;
+    top: 160px;
+    left: 600px;
+}
+
 textarea {
     border: 1px solid #242325;
     background-color: #c8c8c8;

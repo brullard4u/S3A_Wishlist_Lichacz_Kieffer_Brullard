@@ -125,6 +125,12 @@ $app->get('/participant/aff_liste/:name', function ($name) {
 	$c->afficherListe($name);
 })->name('voir_liste');
 
+// Affichage de la page permettant au createur d'afficher une liste
+$app->get('/createur/aff_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->afficherListe($name);
+})->name('consulter_liste');
+
 // Enregistrement du message du participant
 $app->post('/participant/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
@@ -132,10 +138,16 @@ $app->post('/participant/aff_liste/:name', function ($name) {
 });
 
 // Affichage de la page permettant au createur d'afficher une liste
-$app->get('/createur/aff_liste/:name', function ($name) {
+$app->get('/createur/partager_liste/:name', function ($name) {
 	$c = new ControleurListe();
-	$c->afficherListe($name);
-})->name('consulter_liste');
+	$c->partagerListe($name);
+})->name('partager');
+
+// Enregistrement du message du participant
+$app->post('/participant/partager_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->envoyerInvitation($name);
+});
 
 // Affichage de la page permettant au createur de creer une liste
 $app->get('/createur/nouvelle_liste', function () {
@@ -244,7 +256,7 @@ $app->get('/createur/supprimer_compte', function () {
 $app->get('/createur/modifier_compte/', function (){
     $c = new ControleurUtilisateur();
     $c->modificationCompte();
-});
+})->name('modifier_compte');
 
 // Modifier le compte
 $app->post('/createur/modifier_compte/', function (){
