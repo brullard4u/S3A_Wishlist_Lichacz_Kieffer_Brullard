@@ -5,6 +5,7 @@ namespace mywishlist\controleur;
 use mywishlist\modele\Item;
 use mywishlist\modele\Liste;
 use mywishlist\modele\Cagnotte;
+use mywishlist\modele\Participation;
 use mywishlist\vue\VueListe;
 use mywishlist\vue\VueItem;
 
@@ -144,10 +145,40 @@ class ControleurItem
     public function afficherParticipation($id){
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
         $cagnotte = Cagnotte::where('id_item' , '=' , $id)->first();
+        $id_c = $cagnotte->cagnotte_id;
+        $participant = Participation::where('id_cagnotte','=',$id_c)->get();
+        $montant =0;
+        foreach($participant as $p){
+            $montant= $montant + $p->montant;
+        }
+        if($montant < $item->tarif){
         $aff = new VueItem($this->liste, $item);
-        $max = $item->tarif - $cagnotte->montant;
+        $max = $item->tarif - $montant;
         $aff->affParticipation($max);
         echo $aff->render();
+        }else{
+            $aff = new VueItem($this->liste, $item);
+        $aff->affPasParticipation();
+        echo $aff->render();
+        }
+    }
+
+    public function Participation($id){
+        $app = \Slim\Slim::getInstance();
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $nom = $app->request->post('nom');
+        $montant = $app->request->post('montant');
+        $cagnotte= Cagnotte::where('id_item', '=', $id)->first();
+        $id_c = $cagnotte->cagnotte_id;
+        $participation = new Participation();
+        $participation->id_cagnotte = $id_c;
+        $participation->nom_participant =$nom;
+        $participation->montant=$montant;
+        $participation->save();
+        $aff = new VueItem($this->liste, $item);
+        $aff->afterparticipation();
+        echo $aff->render();
+
     }
 
     public function creerCagnotte($id){
@@ -156,7 +187,8 @@ class ControleurItem
         $cagnotte = new Cagnotte();
         $cagnotte->id_item = $id;
         $cagnotte->save();
-        $id_c= Cagnotte::where('id_item', '=', $id)->first()->id_cagnotte;
+        $cagnotte= Cagnotte::where('id_item', '=', $id)->first();
+        $id_c = $cagnotte->cagnotte_id;
         Item::where('id', '=', $id)->update( ['id_cagnotte' => $id_c]);
         $item = Item::where('id', '=', $id)->first();
         $aff = new VueItem($this->liste, $item);

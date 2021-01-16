@@ -228,18 +228,39 @@ class VueItem extends VueGenerale
         <p>{$this->item->nom}<p>
         <form method='post' action=''>
             <p>Nom: <input type='text' name='nom'></p>
-            <p>Montant de la participation : <input type='number' name='prix' min="1" max=$max></p>
+            <p>Montant de la participation : <input type='number' name='montant' min="1" max=$max></p>
             <p><input type='submit'class='submit' value='Valider'></p>
         </form>
         FIN;
     }
 
+    public function affPasParticipation(){
+        $app = Slim::getInstance();
+        $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));
+        $this->title = "Participation cagnotte";
+        $this->html .= <<<FIN
+        <h3>Vous ne pouvez plus participer a cette cagnotte</h3>
+        <p><a href=$url>Retourner à la liste</a></p>
+        FIN;
+    }
+
     public function affCreaParti(){
+        $this->title = "Creation cagnotte";
         $this->html .= <<<FIN
         <h3>Voulez-vous vraiment créer une cagnotte pour l'item {$this->item->nom} ?</h3>
         <form method='post' action=''>
             <p><input type='submit'class='submit' value='Valider'></p>
         </form>
+        FIN;
+    }
+
+    public function afterparticipation(){
+        $this->title = "Participation cagnotte";
+        $app = Slim::getInstance();
+        $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));
+        $this->html .= <<<FIN
+        <h3>Votre participation à la cagnotte à été enregistre </h3>
+        <p><a href=$url>Retourner à la liste</a></p>
         FIN;
     }
 }

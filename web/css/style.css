@@ -128,19 +128,19 @@ input {
 .sup {
     position: absolute;
     top: 160px;
-    left: 320px;
+    left: 315px;
 }
 
 .public {
     position: absolute;
     top: 185px;
-    left: 60px;
+    left: 210px;
 }
 
 .share {
     position: absolute;
     top: 185px;
-    left: 240px;
+    left: 60px;
 }
 
 .cagnotte{

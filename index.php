@@ -270,6 +270,12 @@ $app->get('/participant/participer_cagnotte/:name/:id', function (String $name, 
 	$c->afficherParticipation($id);
 })->name('participation_cagnotte');
 
+
+$app->post('/participant/participer_cagnotte/:name/:id', function (String $name, $id) {
+	$c = new ControleurItem($name);
+	$c->Participation($id);
+});
+
 // Affichage de la page permettant à un createur de creer une cagnotte
 $app->get('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
 	$c = new ControleurItem($name);
