@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 14 jan. 2021 à 10:41
+-- Généré le : sam. 16 jan. 2021 à 13:18
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `liste` (
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `privacy` varchar(50) NOT NULL DEFAULT 'private',
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `liste`
@@ -114,7 +114,7 @@ INSERT INTO `liste` (`no`, `user_id`, `titre`, `description`, `expiration`, `tok
 (1, 1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 'public'),
 (2, 2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 'public'),
 (3, 3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 'public'),
-(4, 2, 'liste_test', 'ceci est un test', '2021-01-24', '81f2ba9', 'private');
+(4, 4, 'liste_test', 'ceci est un test', '2021-01-24', '81f2ba9', 'private');
 
 -- --------------------------------------------------------
 
@@ -128,15 +128,16 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `nom` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`user_id`, `nom`, `password`) VALUES
-(2, 'Baptiste', '$2y$12$01bhxUjeUrhQ4DHVSMboteoFdq1/jBSYjUxsy6Nd85UhRRUvVzs9.'),
-(7, 'Alphonse', '$2y$12$nqcO3dYlLACg1/cirp//u.XimD6WrnYGz3dXyT9ZVY/4tAkG4QjdW');
+(4, 'Baptiste', '$2y$12$01bhxUjeUrhQ4DHVSMboteoFdq1/jBSYjUxsy6Nd85UhRRUvVzs9.'),
+(7, 'Alphonse', '$2y$12$nqcO3dYlLACg1/cirp//u.XimD6WrnYGz3dXyT9ZVY/4tAkG4QjdW'),
+(10, 'Sarah', '$2y$12$J/78M6R7ZXpU2TjWSc5FuuPZF.LrhbSzJAtEWkAcHxu/wFPNr6LDC');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
