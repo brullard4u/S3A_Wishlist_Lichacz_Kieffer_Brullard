@@ -119,6 +119,12 @@ input {
     left: 190px;
 }
 
+.modif_i{
+    position: absolute;
+    top: 160px;
+    left: 200px;
+}
+
 .sup {
     position: absolute;
     top: 160px;
@@ -127,14 +133,26 @@ input {
 
 .public {
     position: absolute;
-    top: 160px;
-    left: 460px;
+    top: 185px;
+    left: 60px;
 }
 
 .share {
     position: absolute;
-    top: 160px;
-    left: 600px;
+    top: 185px;
+    left: 240px;
+}
+
+.cagnotte{
+    position: absolute;
+    top: 185px;
+    left: 60px;
+}
+
+.pa_c{
+    padding: 10px;
+    width: max-content;
+    background-color: #B3B3B3;
 }
 
 textarea {

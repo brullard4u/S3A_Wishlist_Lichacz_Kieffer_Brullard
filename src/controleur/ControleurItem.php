@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\modele\Item;
 use mywishlist\modele\Liste;
+use mywhishlist\modele\Cagnotte;
 use mywishlist\vue\VueListe;
 use mywishlist\vue\VueItem;
 
@@ -139,4 +140,35 @@ class ControleurItem
         $aff->affSupprimer();
         echo $aff->render();
     }
+
+    public function afficherParticipation($id){
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $cagnotte = Cagnotte::where('id_item' , '=' , $id);
+        $aff = new VueItem($this->liste, $item);
+        $max = $item->tarif - $cagnotte->montant;
+        $aff->affParticipation($max);
+        echo $aff->render();
+    }
+
+    public function creerCagnotte($id){
+        
+        $app = \Slim\Slim::getInstance();
+        $cagnotte = new Cagnotte();
+        $cagnotte->id_item = $id;
+        $cagnotte->save();
+        $id_c= Cagnotte::where('id_item', '=', $id)->first();
+        Item::where('id', '=', $id)->update( ['id_cagnotte' => $id_c]);
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->afficherItemCreateur();
+        echo $aff->render();
+    }
+
+    public function affCreerCagnotte($id){
+        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $aff = new VueItem($this->liste, $item);
+        $aff->affCreaParti();
+        echo $aff->render();
+    }
+
 }

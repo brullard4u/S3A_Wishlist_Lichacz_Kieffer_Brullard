@@ -84,7 +84,7 @@ $app->post('/createur/supprimer_item/:name/:id', function ($name, $id) {
 })->name('supp_item');
 
 // Suppression d'un item
-$app->get('/createur/supprimer_item/:name/:id', function ($name, $id) {
+$app->get('/createur/supprimer_item/:name/:id', function ( String $name, $id) {
 	$c = new ControleurItem($name);
 	$c->suppressionItem($id);
 });
@@ -264,5 +264,19 @@ $app->post('/createur/modifier_compte/', function (){
     $c->modifierCompte();
 });
 
+$app->get('/participant/participer_cagnotte/:name/:id', function (String $name, $id) {
+	$c = new ControleurItem($name);
+	$c->afficherParticipation($id);
+})->name('participation_cagnotte');
+
+$app->get('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
+	$c = new ControleurItem($name);
+	$c->affCreerCagnotte($id);
+})->name('crea_cagnotte');
+
+$app->post('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
+	$c = new ControleurItem($name);
+	$c->creerCagnotte($id);
+});
 
 $app->run();

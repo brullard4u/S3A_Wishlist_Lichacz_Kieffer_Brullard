@@ -42,7 +42,7 @@ class VueItem extends VueGenerale
         $url3 = $app->urlFor('supprimer_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url4 = $app->urlFor('modif_item', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url5 = $app->urlFor('supp_item', array('name' => $this->liste->token, 'id' => $this->item->id));
-
+        $url6 = $app->urlFor('crea_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
         if (!empty($this->item->url))
             $url = "<a href={$this->item->url}>Achetable ici</a>";
 
@@ -52,11 +52,14 @@ class VueItem extends VueGenerale
             <p><a href=$url3>Supprimer l'image</a></p>
             FIN;
         } else {
-            $this->html = "<p><a href=$url1>Ajouter une image</a></p>";
+            $this->html = "<p class='ajout'><a href=$url1>Ajouter une image</a></p>";
         }
         
         if (empty($this->item->acquereur)) {
-            $this->html .= "<p><a href=$url4>Modifier l'item</a></p><p><a href=$url5>Supprimer l'item</a></p>";
+            $this->html .= "<p class='modif_i'><a href=$url4>Modifier l'item</a></p> <p class='sup'><a href=$url5>Supprimer l'item</a></p>";
+        }
+        if (empty($this->item->id_cagnotte)) {
+            $this->html .= "<p class='cagnotte'><a href=$url6>Créer une cagnotte</a></p>";
         }
 
         if(strpos($this->item->img, 'http') !== false) 
@@ -83,22 +86,32 @@ class VueItem extends VueGenerale
 
     public function afficherItemParticipant()
     {
+        $app = \Slim\Slim::getInstance();
         $txt = '';
         $url = '';
+        $fc ='';
         $this->title = "Affichage d'un item";
+        $urlp = $app->urlFor('participation_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
+        if(!empty($this->item->cagnotte)){
+            $fc = <<<END
+            <p class='pa_c'><a href=$urlp>Participer à la cagnotte pour cette item</a></p>
+            END;
+        }
+
         if (!is_null($this->item)) {
             if (!empty($this->item->acquereur)) {
                 $txt = "<p>Cet item a déjà été choisi par {$this->item->acquereur}</p>";
             } else {
                 $txt = <<<END
-                    <div class='choisi'>
+                  
                     <p>Cet item n'a pas encore été choisi !</p>
                     <form method='post' action=''>
                     Nom: <input type='text' name='acquereur'>
                     Message: <input type='text' name='message'>
                     <input type='submit' class='submit' value='Acquérir'>
+                    $fc
                     </form>
-                    </div>
+                
                     END; 
             }
         }
@@ -207,6 +220,28 @@ class VueItem extends VueGenerale
         $this->html .= <<<FIN
         <h3>L'item vient d'etre supprimé</h3>
         <p><a href=$url>Retourner à la liste</a></p>
+        FIN;
+    }
+
+    public function affParticipation($max){
+        $this->title = "Participation cagnotte";
+        $this->html .= <<<FIN
+        <h3>Voulez-vous vraiment participer à la cagnotte de l'item suivant ?</h3>
+        <p>{$this->item->nom}<p>
+        <form method='post' action=''>
+            <p>Nom: <input type='text' name='nom'></p>
+            <p>Montant de la participation : <input type='number' name='prix' min="1" max=$max></p>
+            <p><input type='submit'class='submit' value='Valider'></p>
+        </form>
+        FIN;
+    }
+
+    public function affCreaParti(){
+        $this->html .= <<<FIN
+        <h3>Voulez-vous vraiment créer une cagnotte pour l'item {$this->item->nom} ?</h3>
+        <form method='post' action=''>
+            <p><input type='submit'class='submit' value='Valider'></p>
+        </form>
         FIN;
     }
 }
