@@ -92,7 +92,7 @@ class VueItem extends VueGenerale
         $fc ='';
         $this->title = "Affichage d'un item";
         $urlp = $app->urlFor('participation_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
-        if(!empty($this->item->cagnotte)){
+        if(!empty($this->item->id_cagnotte)){
             $fc = <<<END
             <p class='pa_c'><a href=$urlp>Participer à la cagnotte pour cette item</a></p>
             END;
@@ -103,7 +103,6 @@ class VueItem extends VueGenerale
                 $txt = "<p>Cet item a déjà été choisi par {$this->item->acquereur}</p>";
             } else {
                 $txt = <<<END
-                  
                     <p>Cet item n'a pas encore été choisi !</p>
                     <form method='post' action=''>
                     Nom: <input type='text' name='acquereur'>
@@ -111,8 +110,7 @@ class VueItem extends VueGenerale
                     <input type='submit' class='submit' value='Acquérir'>
                     $fc
                     </form>
-                
-                    END; 
+                END; 
             }
         }
 

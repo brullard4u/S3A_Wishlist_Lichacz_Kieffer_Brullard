@@ -264,16 +264,19 @@ $app->post('/createur/modifier_compte/', function (){
     $c->modifierCompte();
 });
 
+// Affichage de la page permettant à un utilisateur de participer à une cagnotte
 $app->get('/participant/participer_cagnotte/:name/:id', function (String $name, $id) {
 	$c = new ControleurItem($name);
 	$c->afficherParticipation($id);
 })->name('participation_cagnotte');
 
+// Affichage de la page permettant à un createur de creer une cagnotte
 $app->get('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
 	$c = new ControleurItem($name);
 	$c->affCreerCagnotte($id);
 })->name('crea_cagnotte');
 
+// Creation d'une cagnotte
 $app->post('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
 	$c = new ControleurItem($name);
 	$c->creerCagnotte($id);

@@ -4,7 +4,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\modele\Item;
 use mywishlist\modele\Liste;
-use mywhishlist\modele\Cagnotte;
+use mywishlist\modele\Cagnotte;
 use mywishlist\vue\VueListe;
 use mywishlist\vue\VueItem;
 
@@ -143,7 +143,7 @@ class ControleurItem
 
     public function afficherParticipation($id){
         $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
-        $cagnotte = Cagnotte::where('id_item' , '=' , $id);
+        $cagnotte = Cagnotte::where('id_item' , '=' , $id)->first();
         $aff = new VueItem($this->liste, $item);
         $max = $item->tarif - $cagnotte->montant;
         $aff->affParticipation($max);
@@ -156,9 +156,9 @@ class ControleurItem
         $cagnotte = new Cagnotte();
         $cagnotte->id_item = $id;
         $cagnotte->save();
-        $id_c= Cagnotte::where('id_item', '=', $id)->first();
+        $id_c= Cagnotte::where('id_item', '=', $id)->first()->id_cagnotte;
         Item::where('id', '=', $id)->update( ['id_cagnotte' => $id_c]);
-        $item = Item::where('liste_id', '=', $this->liste->no)->where('id', '=', $id)->first();
+        $item = Item::where('id', '=', $id)->first();
         $aff = new VueItem($this->liste, $item);
         $aff->afficherItemCreateur();
         echo $aff->render();
