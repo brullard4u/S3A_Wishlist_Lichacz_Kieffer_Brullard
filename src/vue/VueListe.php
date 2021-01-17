@@ -4,6 +4,7 @@ namespace mywishlist\vue;
 
 use mywishlist\modele\Commentaire;
 use mywishlist\modele\Liste;
+use mywishlist\modele\Joindre;
 
 class VueListe extends VueGenerale
 {
@@ -63,6 +64,7 @@ class VueListe extends VueGenerale
             case 2:
                 $this->title = "Affichage des listes créées";
                 $this->html .= "<h2>Choississez une de vos listes</h2>";
+                $joindre = Joindre::where('user_id','=',$this->user_id)->where('createur','=',null)->get();
                 foreach ($listes as $liste) {
                     if ($liste->user_id == $this->user_id) {
                         $url = $app->urlFor('consulter_liste', array('name' => $liste->token));
@@ -71,6 +73,20 @@ class VueListe extends VueGenerale
                         FIN;
                     }
                 }
+                $this->html .= <<<FIN
+                <div class ="choisi">
+                <h3>liste jointe à votre compte</h3>
+                FIN;
+                foreach ($joindre as $j) {
+                    if ($j->user_id == $this->user_id) {
+                        $url = $app->urlFor('consulter_liste', array('name' => $liste->token));
+                        $this->html .= <<<FIN
+                        <p><a href="$url">$liste->titre</a></p>
+                       FIN;
+                       
+                    }
+                }
+                $this->html .=  "</div>";
                 break;
         }
     }
@@ -115,7 +131,16 @@ class VueListe extends VueGenerale
             }
             $url = $app->urlFor('partager', array('name' => $this->liste->token));  
             $gestion .= "<p class='share'><a href='$url'>Partager votre liste</a></p>"; 
+
+
+        }else{$joindre = Joindre::where('user_id','=',$this->user_id)->where('liste_id','=',$this->liste->no)->get();
+            if(empty($joindre)){
+        $url = $app->urlFor('joindre_liste', array('name' => $this->liste->token));
+        $gestion .= "<p class='ajout'><a href='$url'>Joindre Liste</a></p>";
+            }
         }
+
+        
 
         // On test si la date d'échéance de la liste est dépassée ou si la liste est consultée par un participant,
         // si c'est le cas on affiche les messages
@@ -250,5 +275,15 @@ class VueListe extends VueGenerale
         <p><a href=$url>Retourner à la liste</a></p>
         FIN;
         return $token;
+    }
+
+    public function JoindreListe(){
+        $this->title = "Joindre Liste";
+        $this->html .= <<<FIN
+        <h3>Voulez-vous vraiment joindre cette liste a votre compte ?</h3>
+        <form method='post' action=''>
+            <p><input type='submit'class='submit' value='Valider'></p>
+        </form>
+        FIN;
     }
 }

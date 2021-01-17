@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\modele\Commentaire;
 use mywishlist\modele\Liste;
+use mywishlist\modele\Joindre;
 use mywishlist\vue\VueListe;
 
 class ControleurListe
@@ -51,6 +52,11 @@ class ControleurListe
         $liste->user_id = $_SESSION['profile']['userid'];
         $liste->token = dechex(random_int(0, 0xFFFFFFF));
         $liste->save();
+        $joindre = new Joindre();
+        $joindre->liste_id = $liste->no;
+        $joindre->user_id =  $_SESSION['profile']['userid'];
+        $joindre->createur = true;
+        $joindre->save();
         $this->choixListe(2);
     }
 
@@ -126,5 +132,24 @@ class ControleurListe
         $tokenInvitation = $v->partagerListe();
         Liste::where('token', '=', $name)->update(['tokenPartage' => $tokenInvitation]);
         echo $v->render();
+    }
+
+    public function affJoindreliste($name){
+        $liste = Liste::where('token', '=', $name)->first();
+        $v = new VueListe($liste);
+        $v->JoindreListe();
+        echo $v->render();
+    }
+
+    public function JoindreListe($name){
+        $app = \Slim\Slim::getInstance();
+        $liste = Liste::where('token', '=', $name)->first();
+        $joindre = new Joindre();
+        $joindre->liste_id = $liste->no;
+        $joindre->user_id =  $_SESSION['profile']['userid'];
+        $joindre->save();
+        $aff = new VueListe($liste);
+        $aff->afficherListe();
+        echo $aff->render();
     }
 }

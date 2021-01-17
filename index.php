@@ -282,4 +282,14 @@ $app->post('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
 	$c->creerCagnotte($id);
 });
 
+$app->get('/createur/joindre_liste/:name', function (String $name){
+	$c = new ControleurListe();
+	$c->affJoindreliste($name);
+})->name('joindre_liste');
+
+$app->post('/createur/joindre_liste/:name', function (String $name){
+	$c = new ControleurListe();
+	$c->JoindreListe($name);
+});
+
 $app->run();
