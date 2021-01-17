@@ -282,14 +282,22 @@ $app->post('/createur/creer_cagnotte/:name/:id', function (String $name,$id){
 	$c->creerCagnotte($id);
 });
 
+// Affichage de la page pour joindre une liste
 $app->get('/createur/joindre_liste/:name', function (String $name){
 	$c = new ControleurListe();
 	$c->affJoindreliste($name);
 })->name('joindre_liste');
 
+// Joindre une liste
 $app->post('/createur/joindre_liste/:name', function (String $name){
 	$c = new ControleurListe();
 	$c->JoindreListe($name);
 });
+
+// Affichage de la page permettant d'afficher les createurs ayant une liste publique'
+$app->get('/participant/aff_createurs', function () {
+    $c = new ControleurUtilisateur();
+    $c->afficherCreateursPubliques();
+})->name('aff_createurs');
 
 $app->run();

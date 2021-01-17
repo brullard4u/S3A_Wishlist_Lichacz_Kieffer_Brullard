@@ -122,4 +122,21 @@ class VueUtilisateur extends VueGenerale
         </form>
         FIN;
     }
+
+    public function afficherCreateursPubliques() {
+        $app = \Slim\Slim::getInstance();
+        $listes = Liste::get();
+        $this->title = "Affichage des créateurs ayant une liste publique";
+        $this->html .= "<div>";
+        $utilisateurs = array();
+        foreach ($listes as $liste) {
+            $utilisateur = Utilisateur::where('user_id','=',$liste->user_id)->first();
+
+            if($liste->privacy == 'public' && !is_null($utilisateur) && !in_array($utilisateur, $utilisateurs)) {
+                array_push($utilisateurs, $utilisateur);
+                $this->html .= "<p>$utilisateur->nom</p>";
+            }
+        }
+        $this->html .= "</div>";
+    }
 }

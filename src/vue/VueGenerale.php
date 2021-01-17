@@ -27,6 +27,7 @@ abstract class VueGenerale
         $cls = $app->urlFor('creation_liste');
         $ac = $app->urlFor('accueil');
         $ls = $app->urlFor('cons_liste');
+        $cp = $app->urlFor('aff_createurs');
         $ins = $app->urlFor('inscription_uti');
         $con = $app->urlFor('connexion_uti');
         $deco = $app->urlFor('deconnexion_uti');
@@ -65,6 +66,7 @@ abstract class VueGenerale
             <ul>
                 <li><a href=$ac>Projet PHP MyWishList</a></li>
                 <li><a href="$lsp">Consulter les listes</a></li>
+                <li><a href="$cp">Consulter les créateurs ayant une liste publique</a> </li>
                 $connect
             </ul>
         </nav>

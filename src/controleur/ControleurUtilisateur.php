@@ -122,4 +122,10 @@ class ControleurUtilisateur
         }
         echo $v->render();
     }
+
+    public function afficherCreateursPubliques(){
+        $v = new VueUtilisateur();
+        $v->afficherCreateursPubliques();
+        echo $v->render();
+    }
 }
