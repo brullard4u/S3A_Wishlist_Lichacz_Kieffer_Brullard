@@ -3,7 +3,6 @@
 namespace mywishlist\vue;
 
 use Slim\Slim;
-
 class VueItem extends VueGenerale
 {
 
@@ -52,17 +51,17 @@ class VueItem extends VueGenerale
         } else {
             $this->html = "<p class='ajout'><a href=$url1>Ajouter une image</a></p>";
         }
-        
-        if (empty($this->item->acquereur)) 
+
+        if (empty($this->item->acquereur))
             $this->html .= "<p class='modif_i'><a href=$url4>Modifier l'item</a></p> <p class='sup'><a href=$url5>Supprimer l'item</a></p>";
 
-        if (empty($this->item->id_cagnotte)) 
+        if (empty($this->item->id_cagnotte))
             $this->html .= "<p class='cagnotte'><a href=$url6>Créer une cagnotte</a></p>";
 
         if (!empty($this->item->url))
             $link = "<a href={$this->item->url}>Achetable ici</a>";
 
-        if(strpos($this->item->img, 'http') !== false) 
+        if (strpos($this->item->img, 'http') !== false)
             $img = $this->item->img;
         else
             $img = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img}";
@@ -76,7 +75,7 @@ class VueItem extends VueGenerale
         <p><a href=$url>Revenir à la liste</a></p>
         FIN;
         if (!empty($this->item->acquereur)) {
-            if($today < $this->liste->expiration)
+            if ($today < $this->liste->expiration)
                 $this->html .= "<div class='choisi'><br><p>Cet item a été choisi !</p></div>";
             else
                 $this->html .= "<div class='choisi'><br><p>Cet item a été choisi par {$this->item->acquereur} qui a laissé le message suivant : \"{$this->item->message}\"</p></div>";
@@ -90,10 +89,10 @@ class VueItem extends VueGenerale
         $app = \Slim\Slim::getInstance();
         $txt = '';
         $link = '';
-        $fc ='';
+        $fc = '';
         $this->title = "Affichage d'un item";
         $url = $app->urlFor('participation_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
-        if(!empty($this->item->id_cagnotte)){
+        if (!empty($this->item->id_cagnotte)) {
             $fc = <<<END
             <p class='pa_c'><a href=$url>Participer à la cagnotte pour cette item</a></p>
             END;
@@ -111,14 +110,14 @@ class VueItem extends VueGenerale
                     <input type='submit' class='submit' value='Acquérir'>
                     $fc
                     </form>
-                END; 
+                END;
             }
         }
 
         if (!empty($this->item->url))
             $link = "<a href={$this->item->url}>Achetable ici</a>";
 
-        if(strpos($this->item->img, 'http') !== false) 
+        if (strpos($this->item->img, 'http') !== false)
             $img = $this->item->img;
         else
             $img = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img}";
@@ -214,7 +213,7 @@ class VueItem extends VueGenerale
     }
 
     public function affSuppression()
-    {   
+    {
         $app = Slim::getInstance();
         $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));
         $this->title = "Suppression d'un item";
@@ -224,7 +223,8 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-    public function affParticipation($max){
+    public function affParticipation($max)
+    {
         $this->title = "Participation cagnotte";
         $this->html .= <<<FIN
         <h3>Voulez-vous vraiment participer à la cagnotte de l'item suivant ?</h3>
@@ -237,7 +237,8 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-    public function affPasParticipation(){
+    public function affPasParticipation()
+    {
         $app = Slim::getInstance();
         $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));
         $this->title = "Participation cagnotte";
@@ -247,7 +248,8 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-    public function affCreaParti(){
+    public function affCreaParti()
+    {
         $this->title = "Creation cagnotte";
         $this->html .= <<<FIN
         <h3>Voulez-vous vraiment créer une cagnotte pour l'item {$this->item->nom} ?</h3>
@@ -257,7 +259,8 @@ class VueItem extends VueGenerale
         FIN;
     }
 
-    public function afterparticipation(){
+    public function afterparticipation()
+    {
         $this->title = "Participation cagnotte";
         $app = Slim::getInstance();
         $url = $app->urlFor('consulter_liste', array('name' => $this->liste->token));

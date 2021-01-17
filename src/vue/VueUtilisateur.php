@@ -2,83 +2,11 @@
 
 namespace mywishlist\vue;
 
-use finfo;
 use Slim\Slim;
 
-class VueUtilisateur
+class VueUtilisateur extends VueGenerale
 {
-
-    private $title;
-    private $html;
-
-    /*
-    L'onglet "Mes participations à des listes" permet à un utilisateur connecté d'afficher les listes auquel il participe
-
-    */
-
-    public function render()
-    {
-        $app = Slim::getInstance();
-        $road = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/css/style.css";
-        $ins = $app->urlFor('inscription_uti');
-        $con = $app->urlFor('connexion_uti');
-        $lsp = $app->urlFor('aff_liste');
-        $ac = $app->urlFor('accueil');
-        $cls = $app->urlFor('creation_liste');
-        $ls = $app->urlFor('cons_liste');
-        $deco = $app->urlFor('deconnexion_uti');
-        $esp = $app->urlFor('es_p');
-        if (!isset($_SESSION['profile'])) {
-            $connect = <<<FIN
-            <li class = "connect"><a href="$con">Se connecter </a></li>
-            <li class = "connect"><a href="$ins"> S'inscrire </a></li>
-            FIN;
-        } else {
-            $connect = <<<FIN
-            <li >
-                <a href=$esp>Mon compte</a>
-                    <ul class ="sous" > 
-                        <li><a href="$cls">Créer une liste</a></li>
-                        <li><a href="$ls">Mes listes</a></li>
-                        <li><a href="#">Mes participations à des listes</a></li>
-                    </ul>
-            </li>
-            <li class = "connect"><a href="$deco">Se déconnecter </a></li>
-            FIN;
-        }
-
-        echo <<<END
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="utf-8">
-            <meta name="description" content="">
-            <link rel="stylesheet" href=$road>
-            <title>{$this->title}</title>
-        </head>
-        <body>
-            <header>
-                <nav class ="menu">
-                    <ul>
-                        <li><a href="$ac">Projet PHP MyWishList</a></li>
-                        <li ><a href="$lsp">Consulter les listes</a></li>
-                        $connect
-                        
-                    </ul>
-                </nav>
-            </header>
-            
-            <div class='contenu'>
-            <h1>{$this->title}</h1>
-            {$this->html}
-            </div>
-            <footer>Sarah Lichacz | Charlie Kieffer | Baptiste Brullard</footer>
-        </body>
-        </html>
-        END;
-    }
-
-
+   
     public function registerForm()
     {
         $this->html = <<<FIN
@@ -90,7 +18,6 @@ class VueUtilisateur
         </form>
         FIN;
         $this->title = "Enregistrement";
-        $this->render();
     }
 
     public function logInForm()
@@ -108,7 +35,6 @@ class VueUtilisateur
         <a href=$url>Enregistrez-vous ici</a>
         FIN;
         $this->title = "Connexion";
-        $this->render();
     }
 
     public function afterRegisterForm()
@@ -121,7 +47,6 @@ class VueUtilisateur
         <a href=$url>Page de connexion</a>
         FIN;
         $this->title = "Enregistrement validé";
-        $this->render();
     }
 
     public function connected()
@@ -131,7 +56,6 @@ class VueUtilisateur
         <h3>Bonjour $name ! Vous êtes connecté.</h3>
         FIN;
         $this->title = "Connexion";
-        $this->render();
     }
 
     public function notConnected()
@@ -144,7 +68,6 @@ class VueUtilisateur
         <a href=$url>réessayer</a>
         FIN;
         $this->title = "Erreur";
-        $this->render();
     }
 
     public function affichageAccueil()
@@ -158,7 +81,6 @@ class VueUtilisateur
         </div>
         FIN;
         $this->title = "Accueil";
-        $this->render();
     }
 
     public function affEsP(){
@@ -171,7 +93,6 @@ class VueUtilisateur
         <p><a href=$urlMod>Modifier votre compte</p>
         FIN;
         $this->title = "Espace Personnel";
-        $this->render();
     }
 
     public function affichageSuppressionCompte(){
@@ -182,15 +103,12 @@ class VueUtilisateur
         </form>
         FIN;
         $this->title = "Supprimer Compte";
-        $this->render();
     }
 
     public function affichageNotSup(){
         $this->html .= <<<FIN
-        <h3>nous n'avons pas supprimer le compte car il n'existe pas</h3>
-        
+        <h3>Nous n'avons pas supprimer le compte car il n'existe pas</h3>
         FIN;
-        $this->render();
     }
 
     public function modifierCompte(){

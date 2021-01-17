@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : Dim 17 jan. 2021 à 09:46
+-- Généré le : Dim 17 jan. 2021 à 17:20
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `item` (
   `message` varchar(250) DEFAULT NULL,
   `id_cagnotte` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `item`
@@ -106,15 +106,38 @@ INSERT INTO `item` (`id`, `liste_id`, `nom`, `descr`, `img`, `url`, `tarif`, `ac
 (22, 0, 'Concert', 'Un concert à Nancy', 'concert.jpg', '', '17.00', '', NULL, NULL),
 (23, 1, 'Appart Hotel', 'Appart’hôtel Coeur de Ville, en plein centre-ville', 'apparthotel.jpg', '', '56.00', '', NULL, NULL),
 (24, 2, 'Hôtel d\'Haussonville', 'Hôtel d\'Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas', 'hotel_haussonville_logo.jpg', '', '169.00', '', NULL, NULL),
-(25, 1, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '', '32.00', 'lkjhg', ';,kjnhbgfrde', NULL),
+(25, 1, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '', '32.00', 'sarah', 'Enjoy', NULL),
 (26, 1, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '', '15.00', '', NULL, NULL),
 (27, 1, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '', '25.00', '', NULL, NULL),
-(29, 5, 'verre ', 'sdfghy', NULL, 'https://www.amazon.fr/Avalita-Verres-Transparent-lint%C3%A9rieur-Mariage/dp/B07ZGX4PT9/ref=asc_df_B07ZGX4PT9/?tag=googshopfr-21&linkCode=df0&hvadid=483573789050&hvpos=&hvnetw=g&hvrand=11757540551725404920&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9055641&hvtargid=pla-1059194405744&psc=1', '38.00', NULL, NULL, NULL),
-(33, 6, ';l,kjihbml;k,', 'ml;k', NULL, 'kjkhiyug\r\n', '5.00', NULL, NULL, NULL),
+(29, 5, 'verre ', 'Verres transparents', NULL, 'https://www.amazon.fr/Avalita-Verres-Transparent-lint%C3%A9rieur-Mariage/dp/B07ZGX4PT9/ref=asc_df_B07ZGX4PT9/?tag=googshopfr-21&linkCode=df0&hvadid=483573789050&hvpos=&hvnetw=g&hvrand=11757540551725404920&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9055641&hvtargid=pla-1059194405744&psc=1', '38.00', NULL, NULL, NULL),
+(33, 6, 'DVD', 'DVD de qualité supérieure', NULL, NULL, '5.00', NULL, NULL, NULL),
 (35, 6, 'birkin', 'sac hermes', NULL, 'https://www.hermes.com/fr/fr/product/accessoire-curiosite-kelly-laque-H071667FD03/?gclid=EAIaIQobChMI6rDdoueg7gIVDt5RCh3lgwKSEAYYASABEgKedvD_BwE', '295.00', NULL, NULL, '22'),
 (36, 6, 'botte', 'louis vuitton', NULL, 'https://fr.louisvuitton.com/fra-fr/produits/botte-haute-podium-a-plateforme-nvprod2130136v#1A7U7D', '1630.00', NULL, NULL, '23'),
-(37, 6, 'chunky boots', 'naked wolfe', NULL, 'https://nakedwolfe.com/collections/ankle-boots/products/spice-black-shine', '290.00', NULL, NULL, NULL),
-(38, 4, 'Item_test', 'Item servant aux tests', NULL, '', '10.00', NULL, NULL, NULL);
+(37, 6, 'chunky boots', 'naked wolfe', NULL, 'https://nakedwolfe.com/collections/ankle-boots/products/spice-black-shine', '290.00', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `joindre`
+--
+
+DROP TABLE IF EXISTS `joindre`;
+CREATE TABLE IF NOT EXISTS `joindre` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `liste_id` int(11) DEFAULT NULL,
+  `createur` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `joindre`
+--
+
+INSERT INTO `joindre` (`id`, `user_id`, `liste_id`, `createur`) VALUES
+(5, 9, 18, '1'),
+(15, 9, 1, NULL),
+(16, 9, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,22 +153,20 @@ CREATE TABLE IF NOT EXISTS `liste` (
   `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `expiration` date DEFAULT NULL,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tokenPartage` varchar(255) DEFAULT NULL,
   `privacy` varchar(50) NOT NULL DEFAULT 'private',
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `liste`
 --
 
-INSERT INTO `liste` (`no`, `user_id`, `titre`, `description`, `expiration`, `token`, `tokenPartage`, `privacy`) VALUES
-(1, 1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', NULL, 'public'),
-(2, 2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', NULL, 'public'),
-(3, 3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', NULL, 'private'),
-(4, 2, 'liste_test', 'ceci est un test', '2021-01-24', '81f2ba9', '6f98542', 'private'),
-(6, 9, 'test', 'wdfguglfyktdkufyli', '2021-01-28', 'a11d68b', NULL, 'public'),
-(7, 9, 'qsedf', 'qsd', '2021-01-22', 'e6b43c1', NULL, 'private');
+INSERT INTO `liste` (`no`, `user_id`, `titre`, `description`, `expiration`, `token`, `privacy`) VALUES
+(1, 1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 'public'),
+(2, 2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 'public'),
+(3, 3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 'public'),
+(4, 2, 'liste_test', 'ceci est un test', '2021-01-24', '81f2ba9', 'private'),
+(6, 9, 'test', 'Liste de test', '2021-01-28', 'a11d68b', 'public');
 
 -- --------------------------------------------------------
 

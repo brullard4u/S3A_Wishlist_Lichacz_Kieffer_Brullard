@@ -75,7 +75,7 @@ class VueListe extends VueGenerale
                 }
                 $this->html .= <<<FIN
                 <div class ="choisi">
-                <h3>liste jointe à votre compte</h3>
+                <h3>Liste(s) jointe(s) à votre compte</h3>
                 FIN;
                 foreach ($joindre as $j) {
                     if ($j->user_id == $this->user_id) {
