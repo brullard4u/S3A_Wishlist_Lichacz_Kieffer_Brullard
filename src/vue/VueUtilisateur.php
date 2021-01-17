@@ -2,11 +2,14 @@
 
 namespace mywishlist\vue;
 
+use mywishlist\modele\utilisateur;
+use mywishlist\modele\Liste;
+
 use Slim\Slim;
 
 class VueUtilisateur extends VueGenerale
 {
-   
+
     public function registerForm()
     {
         $this->html = <<<FIN
@@ -83,9 +86,10 @@ class VueUtilisateur extends VueGenerale
         $this->title = "Accueil";
     }
 
-    public function affEsP(){
-        $app =Slim::getInstance();
-        $url =$app->urlfor('supprimerCompte');
+    public function affEsP()
+    {
+        $app = Slim::getInstance();
+        $url = $app->urlfor('supprimerCompte');
         $urlMod = $app->urlFor('modifier_compte');
         $this->html = <<<FIN
         <h3>Bienvenue sur votre espace personnel</h3>
@@ -95,7 +99,8 @@ class VueUtilisateur extends VueGenerale
         $this->title = "Espace Personnel";
     }
 
-    public function affichageSuppressionCompte(){
+    public function affichageSuppressionCompte()
+    {
         $this->html .= <<<FIN
         <h3>Voulez-vous vraiment supprimer votre compte ?</h3>
         <form method='post' action=''>
@@ -105,13 +110,15 @@ class VueUtilisateur extends VueGenerale
         $this->title = "Supprimer Compte";
     }
 
-    public function affichageNotSup(){
+    public function affichageNotSup()
+    {
         $this->html .= <<<FIN
         <h3>Nous n'avons pas supprimer le compte car il n'existe pas</h3>
         FIN;
     }
 
-    public function modifierCompte(){
+    public function modifierCompte()
+    {
         $app = Slim::getInstance();
         $this->title = "Modification du compte";
         $this->html .= <<<FIN
@@ -123,18 +130,19 @@ class VueUtilisateur extends VueGenerale
         FIN;
     }
 
-    public function afficherCreateursPubliques() {
+    public function afficherCreateursPubliques()
+    {
         $app = \Slim\Slim::getInstance();
         $listes = Liste::get();
         $this->title = "Affichage des créateurs ayant une liste publique";
         $this->html .= "<div>";
         $utilisateurs = array();
         foreach ($listes as $liste) {
-            $utilisateur = Utilisateur::where('user_id','=',$liste->user_id)->first();
+            $utilisateur = Utilisateur::where('user_id', '=', $liste->user_id)->first();
 
-            if($liste->privacy == 'public' && !is_null($utilisateur) && !in_array($utilisateur, $utilisateurs)) {
+            if ($liste->privacy == 'public' && !is_null($utilisateur) && !in_array($utilisateur, $utilisateurs)) {
                 array_push($utilisateurs, $utilisateur);
-                $this->html .= "<p>$utilisateur->nom</p>";
+                $this->html .= "<h3>$utilisateur->nom</h3>";
             }
         }
         $this->html .= "</div>";
