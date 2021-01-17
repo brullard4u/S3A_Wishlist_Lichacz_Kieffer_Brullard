@@ -127,8 +127,7 @@ class VueListe extends VueGenerale
                 $messages .= "<h3>Liste des messages :</h3>";
                 foreach ($commentaires as $commentaire) {
                     $messages .= "<p>\"$commentaire->message\"</p>";
-                }
-               
+                }  
             }
             $messages .= "</div>";
         }
@@ -241,13 +240,15 @@ class VueListe extends VueGenerale
 
     public function partagerListe() {
         $this->title = "Partage d'une liste";
+        $app = \Slim\Slim::getInstance();
+        $url = $app->urlFor('voir_liste', array('name' => $this->liste->token));
+        $token = dechex(random_int(0, 0xFFFFFFF));
+        $link = 'http://workspace/S3A_Wishlist_Lichacz_Kieffer_Brullard/participant/aff_liste/'. $token;
         $this->html = <<<FIN
         <h3>Voulez-vous envoyer un lien d'invitation vers votre liste ?</h3>
-        <form method='post' action=''>
-        <p>Votre email: <input type='text' name='expeditaire'></p>
-        <p>Email du destinataire: <input type="text" name='destinataire'></p>
-        <input type='submit'class='submit' value='Envoyer'>
-        </form>
+        <p>Envoyez le lien suivant : $link</p>
+        <p><a href=$url>Retourner à la liste</a></p>
         FIN;
+        return $token;
     }
 }

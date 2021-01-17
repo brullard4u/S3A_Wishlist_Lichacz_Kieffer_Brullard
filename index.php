@@ -125,12 +125,6 @@ $app->get('/participant/aff_liste/:name', function ($name) {
 	$c->afficherListe($name);
 })->name('voir_liste');
 
-// Affichage de la page permettant au createur d'afficher une liste
-$app->get('/createur/aff_liste/:name', function ($name) {
-	$c = new ControleurListe();
-	$c->afficherListe($name);
-})->name('consulter_liste');
-
 // Enregistrement du message du participant
 $app->post('/participant/aff_liste/:name', function ($name) {
 	$c = new ControleurListe();
@@ -138,16 +132,16 @@ $app->post('/participant/aff_liste/:name', function ($name) {
 });
 
 // Affichage de la page permettant au createur d'afficher une liste
+$app->get('/createur/aff_liste/:name', function ($name) {
+	$c = new ControleurListe();
+	$c->afficherListe($name);
+})->name('consulter_liste');
+
+// Affichage de la page permettant au createur d'envoyer un lien pour partager sa liste
 $app->get('/createur/partager_liste/:name', function ($name) {
 	$c = new ControleurListe();
 	$c->partagerListe($name);
 })->name('partager');
-
-// Enregistrement du message du participant
-$app->post('/participant/partager_liste/:name', function ($name) {
-	$c = new ControleurListe();
-	$c->envoyerInvitation($name);
-});
 
 // Affichage de la page permettant au createur de creer une liste
 $app->get('/createur/nouvelle_liste', function () {
@@ -270,7 +264,7 @@ $app->get('/participant/participer_cagnotte/:name/:id', function (String $name, 
 	$c->afficherParticipation($id);
 })->name('participation_cagnotte');
 
-
+// Enregistrement de la participation
 $app->post('/participant/participer_cagnotte/:name/:id', function (String $name, $id) {
 	$c = new ControleurItem($name);
 	$c->Participation($id);

@@ -94,6 +94,9 @@ class ControleurListe
     public function afficherListe($name)
     {
         $liste = Liste::where('token', '=', $name)->first();
+        if(is_null($liste))
+            $liste = Liste::where('tokenPartage', '=', $name)->first();
+
         $aff = new VueListe($liste);
         $aff->afficherListe();
         echo $aff->render();
@@ -120,23 +123,8 @@ class ControleurListe
     {
         $liste = Liste::where('token', '=', $name)->first();
         $v = new VueListe($liste);
-        $v->partagerListe();
+        $tokenInvitation = $v->partagerListe();
+        Liste::where('token', '=', $name)->update(['tokenPartage' => $tokenInvitation]);
         echo $v->render();
-    }
-
-    public function envoyerInvitation($name)
-    {
-        $app = \Slim\Slim::getInstance();
-        $liste = Liste::where('token', '=', $name)->first();
-        $link = "http://workspace/S3A_Wishlist_Lichacz_Kieffer_Brullard/participant/aff_liste/" . $liste->token;
-        $expiditeur = filter_var($$app->request->post('expediteur'), FILTER_SANITIZE_STRING);
-        $destinataire = filter_var($$app->request->post('destinataire'), FILTER_SANITIZE_STRING);;
-        $subjet = 'Invitation à ma liste de souhaits';
-        $message = "Vous avez été invité à participer à la liste de souhait {$liste->titre}\n
-                    Cliquez sur le lien suivant : $link";
-        $header = "From: $expiditeur\r\n";
-        $header .= "Disposition-Notification-To: $expiditeur";
-        mail($destinataire, $subjet, $message, $header);
-        $this->afficherListe($name);
     }
 }

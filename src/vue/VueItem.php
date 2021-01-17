@@ -34,8 +34,8 @@ class VueItem extends VueGenerale
     {
         $app = \Slim\Slim::getInstance();
         $this->title = "Affichage d'un item";
-        $url = '';
         $gestion = '';
+        $link = '';
         $today = date("Y-m-d");
         $url1 = $app->urlFor('ajouter_img', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url2 = $app->urlFor('modifier_img', array('name' => $this->liste->token, 'id' => $this->item->id));
@@ -43,8 +43,6 @@ class VueItem extends VueGenerale
         $url4 = $app->urlFor('modif_item', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url5 = $app->urlFor('supp_item', array('name' => $this->liste->token, 'id' => $this->item->id));
         $url6 = $app->urlFor('crea_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
-        if (!empty($this->item->url))
-            $url = "<a href={$this->item->url}>Achetable ici</a>";
 
         if (!empty($this->item->img)) {
             $this->html = <<<FIN
@@ -55,24 +53,27 @@ class VueItem extends VueGenerale
             $this->html = "<p class='ajout'><a href=$url1>Ajouter une image</a></p>";
         }
         
-        if (empty($this->item->acquereur)) {
+        if (empty($this->item->acquereur)) 
             $this->html .= "<p class='modif_i'><a href=$url4>Modifier l'item</a></p> <p class='sup'><a href=$url5>Supprimer l'item</a></p>";
-        }
-        if (empty($this->item->id_cagnotte)) {
+
+        if (empty($this->item->id_cagnotte)) 
             $this->html .= "<p class='cagnotte'><a href=$url6>Créer une cagnotte</a></p>";
-        }
+
+        if (!empty($this->item->url))
+            $link = "<a href={$this->item->url}>Achetable ici</a>";
 
         if(strpos($this->item->img, 'http') !== false) 
             $img = $this->item->img;
         else
             $img = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img}";
 
+        $url =  $app->urlFor('consulter_liste', array('name' => $this->liste->token));
         $this->html .= <<<FIN
         <h2>{$this->item->nom}</h2>
-        <p>{$this->item->descr} {$url}</p>
+        <p>{$this->item->descr} {$link}</p>
         <p>{$this->item->tarif}€</p>
         <p><img src=$img alt="Photo indisponible" height=300px width=auto></p>
-        
+        <p><a href=$url>Revenir à la liste</a></p>
         FIN;
         if (!empty($this->item->acquereur)) {
             if($today < $this->liste->expiration)
@@ -88,13 +89,13 @@ class VueItem extends VueGenerale
     {
         $app = \Slim\Slim::getInstance();
         $txt = '';
-        $url = '';
+        $link = '';
         $fc ='';
         $this->title = "Affichage d'un item";
-        $urlp = $app->urlFor('participation_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
+        $url = $app->urlFor('participation_cagnotte', array('name' => $this->liste->token, 'id' => $this->item->id));
         if(!empty($this->item->id_cagnotte)){
             $fc = <<<END
-            <p class='pa_c'><a href=$urlp>Participer à la cagnotte pour cette item</a></p>
+            <p class='pa_c'><a href=$url>Participer à la cagnotte pour cette item</a></p>
             END;
         }
 
@@ -115,18 +116,20 @@ class VueItem extends VueGenerale
         }
 
         if (!empty($this->item->url))
-            $url = "<a href={$this->item->url}>Achetable ici</a>";
+            $link = "<a href={$this->item->url}>Achetable ici</a>";
 
         if(strpos($this->item->img, 'http') !== false) 
             $img = $this->item->img;
         else
             $img = "/S3A_Wishlist_Lichacz_Kieffer_Brullard/web/img/{$this->item->img}";
 
+        $url =  $app->urlFor('voir_liste', array('name' => $this->liste->token));
         $this->html = <<<FIN
         <h3>{$this->item->nom}</h3>
-        <p>{$this->item->descr} {$url}</p>
+        <p>{$this->item->descr} {$link}</p>
         <p>{$this->item->tarif}€</p>
-        <p><img src=$img alt="Photo indisponible" height="400px" width="auto"></p>
+        <p><img src=$img alt="Photo indisponible" height="300px" width="auto"></p>
+        <p><a href=$url>Revenir à la liste</a></p>
         <div class='choisi'>
         $txt
         </div>
