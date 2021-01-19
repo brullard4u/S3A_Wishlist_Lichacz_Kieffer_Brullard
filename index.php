@@ -300,4 +300,16 @@ $app->get('/participant/aff_createurs', function () {
     $c->afficherCreateursPubliques();
 })->name('aff_createurs');
 
+// Affichage de la page pour uploader une image
+$app->get('/createur/uploader_image/:name/:id', function () {
+    $c = new ControleurItem();
+    $c->uploaderImage();
+})->name('upload_image');
+
+// Methode pour uploader une image
+$app->post('/createur/uploader_image/:name/:id', function () {
+    $c = new ControleurItem();
+    $c->postUploadImage();
+});
+
 $app->run();
