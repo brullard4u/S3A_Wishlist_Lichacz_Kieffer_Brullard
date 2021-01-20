@@ -203,4 +203,12 @@ class ControleurItem
         echo $aff->render();
     }
 
+    public function uploaderImage(){
+
+    }
+
+    public function postUploadImage(){
+
+    }
+
 }
