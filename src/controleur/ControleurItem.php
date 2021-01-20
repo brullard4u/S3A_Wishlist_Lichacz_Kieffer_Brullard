@@ -203,12 +203,12 @@ class ControleurItem
         echo $aff->render();
     }
 
-    public function uploaderImage(){
-
+    public function uploaderImage($id){
+        // Affichage de la page permettant de donner l'image à upload
     }
 
-    public function postUploadImage(){
-
+    public function postUploadImage($id){
+        // Enregistrement de l'image dans le repertoire
     }
 
 }

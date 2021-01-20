@@ -301,15 +301,15 @@ $app->get('/participant/aff_createurs', function () {
 })->name('aff_createurs');
 
 // Affichage de la page pour uploader une image
-$app->get('/createur/uploader_image/:name/:id', function () {
-    $c = new ControleurItem();
-    $c->uploaderImage();
+$app->get('/createur/uploader_image/:name/:id', function ($name, $id) {
+    $c = new ControleurItem($name);
+    $c->uploaderImage($id);
 })->name('upload_image');
 
 // Methode pour uploader une image
-$app->post('/createur/uploader_image/:name/:id', function () {
-    $c = new ControleurItem();
-    $c->postUploadImage();
+$app->post('/createur/uploader_image/:name/:id', function ($name, $id) {
+    $c = new ControleurItem($name);
+    $c->postUploadImage($id);
 });
 
 $app->run();
